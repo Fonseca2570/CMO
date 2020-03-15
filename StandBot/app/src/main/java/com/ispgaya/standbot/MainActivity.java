@@ -1,16 +1,23 @@
 package com.ispgaya.standbot;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Selector;
+
 import java.lang.String;
 
 import java.io.IOException;
@@ -42,11 +49,44 @@ public class MainActivity extends AppCompatActivity {
     public int potencia;
     public String nomeAnunciador = "";
     public String tipoAnunciador = "";
+    public boolean hasPhone;
+    public long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Initialize  and Assign Variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        // Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
+        //Perform ItemSelectedListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.config:
+                        startActivity(new Intent(getApplicationContext(), config.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.notification:
+                        startActivity(new Intent(getApplicationContext(), notifications.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.admin:
+                        startActivity(new Intent(getApplicationContext(), admin.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.home:
+                        return true;
+                }
+                return false;
+            }
+        });
+
         result = (TextView) findViewById(R.id.result);
         getBtn = (Button) findViewById(R.id.getBtn);
         getBtn.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getWebsite(){
+    private void getWebsite() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -67,14 +107,14 @@ public class MainActivity extends AppCompatActivity {
                     Elements links = doc.select("article");
 
                     //builder.append(title).append("\n");
-                    for (Element link : links){
+                    for (Element link : links) {
                         String href = link.attr("data-href");
 
                         //builder.append(link.attr("data-href")).append("\n");
                         builder.append(getDetails(href)).append("\n");
                     }
 
-                } catch (IOException e){
+                } catch (IOException e) {
                     builder.append("Error : ").append(e.getMessage()).append("\n");
                 }
 
@@ -88,52 +128,60 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    private String getDetails(String href){
+    private String getDetails(String href) {
+        String idString = "";
         try {
             Document doc = Jsoup.connect(href).get();
             titulo = doc.select("#siteWrap > main > div.flex-container-main > div.flex-container-main__right > div.offer-content__aside > div.offer-summary > span.offer-title.big-text.fake-title").text().toUpperCase();
-            titulo = titulo.replace("COM GARANTIA", "").replace("POUCOS KMS", "").replace("GARANTIA","").trim();
+            titulo = titulo.replace("COM GARANTIA", "").replace("POUCOS KMS", "").replace("GARANTIA", "").trim();
             String valorString = doc.select("#siteWrap > main > div.flex-container-main > div.flex-container-main__right > div.offer-content__aside > div.offer-summary > div.price-wrapper > div > span.offer-price__number").text();
-            valorString = valorString.replace("EUR","").replace(" ","").trim();
+            valorString = valorString.replace("EUR", "").replace(" ", "").trim();
             valor = Integer.parseInt(valorString);
             nomeAnunciador = doc.select(".seller-box__seller-name").first().text().trim();
+            hasPhone = doc.select("body").text().contains("Mostrar");
+            idString = doc.select("#siteWrap > main > div.flex-container-main > div.flex-container-main__left > div.offer-content.offer-content--primary > div > div.offer-content__metabar > div > span:nth-child(2) > span.offer-meta__value").text().trim().replace("\"", "");
+            try {
+                id = Long.parseLong(idString);
+            } catch (NumberFormatException e) {
+                id = 0;
+            }
             Elements details = doc.select("li");
-            for (Element detail : details){
+            for (Element detail : details) {
                 Elements a = detail.select("span");
-                if(a.text().contains("Combustível")){
+                if (a.text().contains("Combustível")) {
                     combustivel = a.next().text();
                     combustivel = combustivel.trim();
                     combustivel = combustivel.toLowerCase();
-                    if(combustivel.contains("gasolina")){
+                    if (combustivel.contains("gasolina")) {
                         combustivel = "gaz";
                     }
-                    if(combustivel.contains("híbrido")){
+                    if (combustivel.contains("híbrido")) {
                         combustivel = "hibride-diesel";
                     }
                 }
-                if(a.text().contains("Marca")){
-                   marca = a.next().text();
-                   marca = marca.trim().replace("ë", "e").replace(" ", "-").toLowerCase().trim();
+                if (a.text().contains("Marca")) {
+                    marca = a.next().text();
+                    marca = marca.trim().replace("ë", "e").replace(" ", "-").toLowerCase().trim();
                 }
-                if(a.text().contains("Modelo")){
+                if (a.text().contains("Modelo")) {
                     modelo = a.next().text();
-                    modelo = modelo.trim().replace("é","e").replace(" ", "-").toLowerCase().trim();
+                    modelo = modelo.trim().replace("é", "e").replace(" ", "-").toLowerCase().trim();
 
                 }
-                if(a.text().contains("Ano de Registo")){
+                if (a.text().contains("Ano de Registo")) {
                     String anoTexto = a.next().text().trim();
                     ano = Integer.parseInt(anoTexto);
                 }
-                if(a.text().contains("Quilómetros")){
+                if (a.text().contains("Quilómetros")) {
                     String quilometrosString = a.next().text();
                     quilometros = Integer.parseInt(quilometrosString.trim().replace(" ", "").replace("km", ""));
 
                 }
-                if(a.text().contains("Potência")){
+                if (a.text().contains("Potência")) {
                     String potenciaString = a.next().text();
                     potencia = Integer.parseInt(potenciaString.trim().replace(" ", "").replace("cv", ""));
                 }
-                if(a.text().contains("Anunciante")){
+                if (a.text().contains("Anunciante")) {
                     tipoAnunciador = a.next().text().trim();
                 }
 
@@ -141,10 +189,11 @@ public class MainActivity extends AppCompatActivity {
             // TODO Adicionar aqui a inserção na base de dados
             // TODO fazer outro html request para comparar preços com os dados acima
 
-        } catch(IOException e){
+        } catch (IOException e) {
 
         }
-        return " "+tipoAnunciador;
+        //System.out.println(tipoAnunciador);
+        return " " + id;
     }
 
 }

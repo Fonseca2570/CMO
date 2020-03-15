@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/config"
+        android:title="Configuration"
+        android:icon = "@drawable/cog" />
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon = "@drawable/ic_home" />
+
+    <item
+        android:id="@+id/notification"
+        android:title="Notification"
+        android:icon = "@drawable/ic_notifications" />
+
+    <item
+        android:id="@+id/admin"
+        android:title="Admin Panel"
+        android:icon = "@drawable/ic_person" />
+
+</menu>
