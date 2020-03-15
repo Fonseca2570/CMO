@@ -2,14 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon = "@drawable/ic_home" />
+
+    <item
         android:id="@+id/config"
         android:title="Configuration"
         android:icon = "@drawable/cog" />
 
-    <item
-        android:id="@+id/home"
-        android:title="Home"
-        android:icon = "@drawable/ic_home" />
 
     <item
         android:id="@+id/notification"
