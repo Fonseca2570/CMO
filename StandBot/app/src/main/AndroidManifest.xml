@@ -11,10 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin"></activity>
-        <activity android:name=".notifications" />
-        <activity android:name=".config" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".admin" android:label = "Admin Panel">
+
+        </activity>
+        <activity android:name=".notifications" android:label = "Notification"/>
+        <activity android:name=".config" android:label = "Configuration"/>
+        <activity android:name=".MainActivity" android:label = "Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
