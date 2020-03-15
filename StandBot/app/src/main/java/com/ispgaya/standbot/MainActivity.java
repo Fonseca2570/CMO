@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     public int quilometros = 100000;
     public int valor;
     public int potencia;
+    public String nomeAnunciador = "";
+    public String tipoAnunciador = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             String valorString = doc.select("#siteWrap > main > div.flex-container-main > div.flex-container-main__right > div.offer-content__aside > div.offer-summary > div.price-wrapper > div > span.offer-price__number").text();
             valorString = valorString.replace("EUR","").replace(" ","").trim();
             valor = Integer.parseInt(valorString);
+            nomeAnunciador = doc.select(".seller-box__seller-name").first().text().trim();
             Elements details = doc.select("li");
             for (Element detail : details){
                 Elements a = detail.select("span");
@@ -130,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
                     String potenciaString = a.next().text();
                     potencia = Integer.parseInt(potenciaString.trim().replace(" ", "").replace("cv", ""));
                 }
+                if(a.text().contains("Anunciante")){
+                    tipoAnunciador = a.next().text().trim();
+                }
 
             }
             // TODO Adicionar aqui a inserção na base de dados
@@ -138,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         } catch(IOException e){
 
         }
-        return " "+potencia;
+        return " "+tipoAnunciador;
     }
 
 }
