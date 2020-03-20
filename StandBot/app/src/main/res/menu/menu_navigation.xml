@@ -3,23 +3,23 @@
 
     <item
         android:id="@+id/home"
-        android:title="Home"
-        android:icon = "@drawable/ic_home" />
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
 
     <item
         android:id="@+id/config"
-        android:title="Configuration"
-        android:icon = "@drawable/cog" />
+        android:icon="@drawable/cog"
+        android:title="Configuration" />
 
 
     <item
         android:id="@+id/notification"
-        android:title="Notification"
-        android:icon = "@drawable/ic_notifications" />
+        android:icon="@drawable/ic_notifications"
+        android:title="Notification" />
 
     <item
         android:id="@+id/admin"
-        android:title="Admin Panel"
-        android:icon = "@drawable/ic_person" />
+        android:icon="@drawable/ic_person"
+        android:title="Admin Panel" />
 
 </menu>

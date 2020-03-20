@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
 
@@ -24,21 +25,16 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    /*public class Carro {
-        String titulo;
-        String url;
-        String marca;
-        String modelo;
-        String Combustivel;
-        int ano;
-        int quilometros;
-        String tipoAnunciante;
-        int cavalos;
-
-    }*/
+    //TODO Variaveis a retirar do config para já estão hardCoded
+    public int variacaoKM = 50000;
+    public int anoMinimo = 1990;
+    public int variacaoAno = 1;
+    public int cavalosMin = 50;
+    public int variacaoCavalos = 10;
 
     private Button getBtn;
     private TextView result;
+    private ImageView logo;
     public String combustivel = "";
     public String marca = "";
     public String modelo = "";
@@ -89,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         result = (TextView) findViewById(R.id.result);
         getBtn = (Button) findViewById(R.id.getBtn);
+        logo = (ImageView) findViewById(R.id.logo);
         getBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,11 +103,26 @@ public class MainActivity extends AppCompatActivity {
                     Document doc = Jsoup.connect("https://www.standvirtual.com/carros/?search%5Border%5D=created_at_first%3Adesc&search%5Bbrand_program_id%5D%5B0%5D=&search%5Bcountry%5D=").get();
                     Elements links = doc.select("article");
 
-                    //builder.append(title).append("\n");
                     for (Element link : links) {
-                        String href = link.attr("data-href");
 
-                        //builder.append(link.attr("data-href")).append("\n");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //logo.setImageResource(R.drawable.fiat);
+                                if(marca.contains("fiat")){
+                                    logo.setImageResource(R.drawable.fiat);
+                                }
+                                if(marca.contains("audi")){
+                                    logo.setImageResource(R.drawable.audi);
+                                }
+                                if(marca.contains("mini")){
+                                    logo.setImageResource(R.drawable.mini);
+                                }
+                                result.setText(marca);
+                            }
+                        });
+
+                        String href = link.attr("data-href");
                         builder.append(getDetails(href)).append("\n");
                     }
 
@@ -184,11 +196,26 @@ public class MainActivity extends AppCompatActivity {
                 if (a.text().contains("Anunciante")) {
                     tipoAnunciador = a.next().text().trim();
                 }
-
             }
-            // TODO Adicionar aqui a inserção na base de dados
-            // TODO fazer outro html request para comparar preços com os dados acima
+            //TODO se a marca for bmw temos que alterar o modelo para 116 -> serie-1, 320 -> serie-3
 
+            // TODO Adicionar aqui a inserção na base de dados
+
+            // TODO fazer outro html request para comparar preços com os dados acima
+            int quilometrosDe = quilometros - variacaoKM;
+            if (quilometrosDe < 0){
+                quilometrosDe = 0;
+            }
+            int quilometrosAte = quilometros + variacaoKM;
+            int cavalosDe = potencia - variacaoCavalos;
+            int cavalosAte = potencia + variacaoCavalos;
+            int anoDe = ano - variacaoAno;
+            int anoAte = ano + variacaoAno;
+            // 0 para nao sinistrado 1 para sinistrados
+            int sinistrado = 0;
+
+            String newUrl = String.format("https://www.standvirtual.com/carros/%s/%s/desde-%s/?search%%5Bfilter_enum_fuel_type%%5D=%s&search%%5Bfilter_float_first_registration_year%%3Ato%%5D=%s&search%%5Bfilter_float_mileage%%3Afrom%%5D=%s&search%%5Bfilter_float_mileage%%3Ato%%5D=%s&search%%5Bfilter_float_power%%3Afrom%%5D=%s&search%%5Bfilter_float_power%%3Ato%%5D=%s&search%%5Bfilter_enum_damaged%%5D=%s&search%%5Border%%5D=filter_float_price%%3Aasc&search%%5Bbrand_program_id%%5D%%5B0%%5D=&search%%5Bcountry%%5D=", marca,modelo, anoDe, combustivel, anoAte, quilometrosDe, quilometrosAte,cavalosDe,cavalosAte,sinistrado);
+            System.out.println(newUrl);
         } catch (IOException e) {
 
         }

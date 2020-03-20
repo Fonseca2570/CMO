@@ -52,5 +52,17 @@
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="144dp"
+        android:layout_height="135dp"
+        android:layout_above="@+id/result"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="130dp"
+        android:layout_marginEnd="137dp"
+        android:layout_marginBottom="59dp"
+        app:srcCompat="@drawable/audi" />
+
 
 </RelativeLayout>
