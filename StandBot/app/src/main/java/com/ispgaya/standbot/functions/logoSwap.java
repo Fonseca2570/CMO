@@ -3,7 +3,7 @@ package com.ispgaya.standbot.functions;
 import com.ispgaya.standbot.R;
 
 public class logoSwap {
-    public int switchlogo(String logo){
+    public static int  switchlogo(String logo){
         if(logo.contains("abarth")){
             return R.drawable.abarth;
         }
@@ -23,7 +23,8 @@ public class logoSwap {
             return R.drawable.audi;
         }
         else if(logo.contains("austin")){
-            return R.drawable.austin;
+            //return R.drawable.austin;
+            return 0;
         }
         else if(logo.contains("bentley")){
             return R.drawable.bentley;
@@ -35,7 +36,8 @@ public class logoSwap {
             return R.drawable.cadillac;
         }
         else if(logo.contains("chatenet")){
-            return R.drawable.chatenet;
+            //return R.drawable.chatenet;
+            return 0;
         }
         else if(logo.contains("chrysler")){
             return R.drawable.chrysler;
@@ -119,7 +121,8 @@ public class logoSwap {
             return R.drawable.maserati;
         }
         else if(logo.contains("maybach")){
-            return R.drawable.maybach;
+            //return R.drawable.maybach;
+            return 0;
         }
         else if(logo.contains("mazda")){
             return R.drawable.mazda;
@@ -143,10 +146,12 @@ public class logoSwap {
             return R.drawable.mitsubishi;
         }
         else if(logo.contains("morgan")){
-            return R.drawable.morgan;
+            //return R.drawable.morgan;
+            return 0;
         }
         else if(logo.contains("nash")){
-            return R.drawable.nash;
+            //return R.drawable.nash;
+            return 0;
         }
         else if(logo.contains("nissan")){
             return R.drawable.nissan;
@@ -203,7 +208,8 @@ public class logoSwap {
             return R.drawable.triumph;
         }
         else if(logo.contains("umm")){
-            return R.drawable.umm;
+            return 0;
+            //return R.drawable.umm;
         }
         else if(logo.contains("vauxhall")){
             return R.drawable.vauxhall;
@@ -212,7 +218,9 @@ public class logoSwap {
             return R.drawable.volvo;
         }
         else if(logo.contains("vw")){
-            return R.drawable.vw;
+            return R.drawable.volkswagen;
         }
+    return 0;
     }
+
 }
