@@ -1,31 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context=".config">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="545dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+                <!--Put form controls here-->
+                <EditText
+                    android:id="@+id/marca"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="marca"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/combustivel"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="combustivel"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/modelo"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="modelo"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/minAno"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="MinAno"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/maxAno"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="MaxAno"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/minCavalos"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="MinCavalos"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/maxCavalos"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="MaxCavalos"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/minKm"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="MinKm"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/maxKm"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="MaxKm"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/minPreco"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="MinPreco"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/maxPreco"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="MaxPreco"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/desconto"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Desconto"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/save"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Save" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:layout_marginBottom="0dp"
         android:background="@color/design_default_color_secondary"
         app:itemBackground="@color/design_default_color_secondary"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_navigation"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="192dp"
-        android:layout_marginBottom="377dp"
-        android:text="Config" />
-
-</RelativeLayout>
+</FrameLayout>
