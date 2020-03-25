@@ -4,17 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#0d1b26">
 
     <TextView
         android:id="@+id/result"
-        android:layout_width="wrap_content"
+        android:layout_width="395dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="178dp"
-        android:layout_marginBottom="298dp"
-        android:text="Result..."
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="296dp"
+        android:gravity="center_horizontal"
+        android:text="Pressione Start para Começar"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -75,15 +80,43 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="198dp"
-        android:layout_height="195dp"
+        android:layout_width="match_parent"
+        android:layout_height="257dp"
         android:layout_above="@+id/result"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="149dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="89dp"
         android:layout_marginBottom="70dp"
-        app:srcCompat="@drawable/standvago" />
+        app:srcCompat="@drawable/indexcar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/alertNotification"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="73dp"
+        android:backgroundTint="#FFFFFF"
+        android:clickable="true"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_notifications" />
+
+    <TextView
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="101dp"
+        android:text="0"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:translationZ="20dp"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>

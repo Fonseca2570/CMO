@@ -1,8 +1,10 @@
 package com.ispgaya.standbot;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ispgaya.standbot.functions.*;
 
 import android.content.Intent;
@@ -24,6 +26,7 @@ import org.jsoup.select.Selector;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import android.os.CountDownTimer;
 
 import java.lang.String;
@@ -44,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView result;
     private ImageView logo;
     private Button stopBtn;
+    private FloatingActionButton notBtn;
+    private TextView counter;
+
+    public int contador = 0;
     public String combustivel = "";
     public String marca = "";
     public String modelo = "";
@@ -97,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
         getBtn = (Button) findViewById(R.id.getBtn);
         stopBtn = (Button) findViewById(R.id.stop);
         logo = (ImageView) findViewById(R.id.logo);
+        notBtn = (FloatingActionButton) findViewById(R.id.alertNotification);
+        counter = (TextView) findViewById(R.id.counter);
         getBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +118,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                overridePendingTransition(0, 0);
+            }
+        });
+        notBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), notifications.class));
                 overridePendingTransition(0, 0);
             }
         });
@@ -135,12 +151,12 @@ public class MainActivity extends AppCompatActivity {
                                     if (idLogo != 0) {
                                         logo.setImageResource(idLogo);
                                     }
-                                    result.setText(marca);
+                                    result.setText("A Pesquisar");
                                 }
                             });
 
                             String href = link.attr("data-href");
-                            if(!sitesJaVisitados.contains(href)){
+                            if (!sitesJaVisitados.contains(href)) {
                                 sitesJaVisitados.add(href);
                                 getDetails(href);
                             }
@@ -156,14 +172,14 @@ public class MainActivity extends AppCompatActivity {
                             new CountDownTimer(60000, 1000) {
 
                                 public void onTick(long millisUntilFinished) {
-                                    result.setText("seconds remaining: " + millisUntilFinished / 1000);
+                                    result.setText("Aguardar: " + millisUntilFinished / 1000);
                                 }
 
                                 public void onFinish() {
-                                    result.setText("done!");
+                                    result.setText("A Pesquisar");
                                 }
                             }.start();
-                            logo.setImageResource(R.drawable.standvago);
+                            logo.setImageResource(R.drawable.indexcar);
                         }
                     });
                     try {
@@ -260,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
             String newUrl = String.format("https://www.standvirtual.com/carros/%s/%s/desde-%s/?search%%5Bfilter_enum_fuel_type%%5D=%s&search%%5Bfilter_float_first_registration_year%%3Ato%%5D=%s&search%%5Bfilter_float_mileage%%3Afrom%%5D=%s&search%%5Bfilter_float_mileage%%3Ato%%5D=%s&search%%5Bfilter_float_power%%3Afrom%%5D=%s&search%%5Bfilter_float_power%%3Ato%%5D=%s&search%%5Bfilter_enum_damaged%%5D=%s&search%%5Border%%5D=filter_float_price%%3Aasc&search%%5Bbrand_program_id%%5D%%5B0%%5D=&search%%5Bcountry%%5D=", marca, modelo, anoDe, combustivel, anoAte, quilometrosDe, quilometrosAte, cavalosDe, cavalosAte, sinistrado);
             Document docComparacao = Jsoup.connect(newUrl).get();
             //System.out.println(newUrl);
-            if(!docComparacao.select("body").text().contains("Não existem anúncios para a sua pesquisa")){
+            if (!docComparacao.select("body").text().contains("Não existem anúncios para a sua pesquisa")) {
                 Element primeiro = docComparacao.select("article").first();
                 String primeiroLink = primeiro.attr("data-href");
                 Element segundo = primeiro;
@@ -278,17 +294,31 @@ public class MainActivity extends AppCompatActivity {
                     preco2 = preco1;
                 }
                 double desconto = 1 - (preco1 / preco2);
-                System.out.println("desconto: " + desconto);
-                System.out.println("url: " + newUrl);
-                System.out.println("preço1: " + preco1);
-                System.out.println("preço2: " + preco2);
                 if (desconto >= descontoConfig) {
                     // TODO fazer validaçoes de configs externas e enviar para notificações
-                    if(ano >= 2010) {
+                    // TODO ativar o sino de notificação
+                    if (ano >= 2010) {
                         System.out.println("desconto: " + desconto);
                         System.out.println("url: " + newUrl);
                         System.out.println("preço1: " + preco1);
                         System.out.println("preço2: " + preco2);
+
+                        // Tornar visible o botão de notification
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (contador == 0) {
+                                    contador += 1;
+                                    counter.setText(String.valueOf(contador));
+                                    counter.setVisibility(View.VISIBLE);
+                                    notBtn.setVisibility(View.VISIBLE);
+                                } else if (contador < 9){
+                                    contador += 1;
+                                    counter.setText(String.valueOf(contador));
+                                }
+                            }
+                        });
+
                     }
                 }
             }
