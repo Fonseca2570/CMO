@@ -5,23 +5,33 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class config extends AppCompatActivity {
 
     EditText minCavalos, maxCavalos, minAno, maxAno, minKm, maxKm, minPreco, maxPreco, desconto, marca, combustivel, modelo;
     Button save;
 
+    Button teste;
+    DBInterface dbInterface;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
+
+        teste = findViewById(R.id.teste);
 
         minCavalos = findViewById(R.id.minCavalos);
         maxCavalos = findViewById(R.id.maxCavalos);
@@ -70,6 +80,27 @@ public class config extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 checkData();
+            }
+        });
+
+        teste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dbInterface = DBHandler.getDBHandler().create(DBInterface.class);
+                retrofit2.Call<Call.Details> call = dbInterface.addData("google.pt", "AA-00-00", "mustang", 0, "porto", "2020-03-25",
+                        "vanessa chata", 2, "2020-05-26");
+
+                call.enqueue(new Callback<Call.Details>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<Call.Details> call, Response<Call.Details> response) {
+                        Toast.makeText(config.this, "Carro criado com sucesso", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(retrofit2.Call<Call.Details> call, Throwable t) {
+
+                    }
+                });
             }
         });
     }
