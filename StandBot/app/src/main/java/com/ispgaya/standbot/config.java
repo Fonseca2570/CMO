@@ -87,8 +87,8 @@ public class config extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dbInterface = DBHandler.getDBHandler().create(DBInterface.class);
-                retrofit2.Call<Call.Details> call = dbInterface.addData("google.pt", "AA-00-00", "mustang", 0, "porto", "2020-03-25",
-                        "vanessa chata", 2, "2020-05-26");
+                retrofit2.Call<Call.Details> call = dbInterface.addData("google.pt", "ford", "mustang", 0, "porto", "2020-03-25",
+                        "hugo", 2, "teste", 0, 300, 0, 2020, "2020-06-26");
 
                 call.enqueue(new Callback<Call.Details>() {
                     @Override
