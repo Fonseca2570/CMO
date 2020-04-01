@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //mainfuction.cleanFile(getApplicationContext(),FileName);
+                mainfuction.cleanFile(getApplicationContext(),FileName);
                 while (true) {
                     final StringBuilder builder = new StringBuilder();
                     try {
@@ -186,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                     try {
+                        System.out.println(mainfuction.lerNotifications(getApplicationContext(), FileName));
                         TimeUnit.MINUTES.sleep(1);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -284,7 +285,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     System.out.println("So existe 1 artigo deste carro");
                 }
-
                 float preco1 = Float.parseFloat(primeiro.select(".offer-price__number").text().replace("EUR", "").replace(" ", "").trim());
                 float preco2 = preco1;
                 try {
@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                         //TODO adicionar dados ao txt
-                        String enviarTexto = String.format("%s;%s;%s;%s;%s;%s;%s;%s;;",id,newUrl,primeiroLink,marca,modelo,quilometros,ano,hasPhone);
+                        String enviarTexto = String.format("%s;%s;%s;%s;%s;;",id,newUrl,primeiroLink,marca,modelo);
                         mainfuction.escreverNotifations(this, FileName, enviarTexto);
                         //textoText = mainfuction.lerNotifications(this,FileName);
                         //System.out.println(textoText);
