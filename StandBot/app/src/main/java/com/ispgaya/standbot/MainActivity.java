@@ -23,11 +23,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Selector;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import android.os.CountDownTimer;
+import android.widget.Toast;
 
 import java.lang.String;
 
@@ -41,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
     public int variacaoAno = 1;
     public int cavalosMin = 50;
     public int variacaoCavalos = 10;
-    public double descontoConfig = 0.20;
+    public double descontoConfig = 0.10;
+    public String textoText = "";
 
     private Button getBtn;
     private TextView result;
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private Button stopBtn;
     private FloatingActionButton notBtn;
     private TextView counter;
+    private static final String FileName = "Notifications.txt";
 
     public int contador = 0;
     public String combustivel = "";
@@ -135,12 +140,12 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //mainfuction.cleanFile(getApplicationContext(),FileName);
                 while (true) {
                     final StringBuilder builder = new StringBuilder();
                     try {
                         Document doc = Jsoup.connect("https://www.standvirtual.com/carros/?search%5Bfilter_enum_damaged%5D=0&search%5Border%5D=created_at_first%3Adesc&search%5Bbrand_program_id%5D%5B0%5D=&search%5Bcountry%5D=").get();
                         Elements links = doc.select("article");
-
                         for (Element link : links) {
 
                             runOnUiThread(new Runnable() {
@@ -165,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         builder.append("Error : ").append(e.getMessage()).append("\n");
                     }
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -174,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
                                 public void onTick(long millisUntilFinished) {
                                     result.setText("Aguardar: " + millisUntilFinished / 1000);
                                 }
-
                                 public void onFinish() {
                                     result.setText("A Pesquisar");
                                 }
@@ -253,10 +256,6 @@ public class MainActivity extends AppCompatActivity {
                     tipoAnunciador = a.next().text().trim();
                 }
             }
-            //TODO se a marca for bmw temos que alterar o modelo para 116 -> serie-1, 320 -> serie-3
-            /*if(marca.contains("bmw")){
-                mainfuction.bmw(modelo);
-            }*/
 
             // TODO Adicionar aqui a inserção na base de dados
 
@@ -296,12 +295,11 @@ public class MainActivity extends AppCompatActivity {
                 double desconto = 1 - (preco1 / preco2);
                 if (desconto >= descontoConfig) {
                     // TODO fazer validaçoes de configs externas e enviar para notificações
-                    // TODO ativar o sino de notificação
                     if (ano >= 2010) {
-                        System.out.println("desconto: " + desconto);
-                        System.out.println("url: " + newUrl);
-                        System.out.println("preço1: " + preco1);
-                        System.out.println("preço2: " + preco2);
+                        //System.out.println("desconto: " + desconto);
+                        //System.out.println("url: " + newUrl);
+                        //System.out.println("preço1: " + preco1);
+                        //System.out.println("preço2: " + preco2);
 
                         // Tornar visible o botão de notification
                         runOnUiThread(new Runnable() {
@@ -318,7 +316,11 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         });
-
+                        //TODO adicionar dados ao txt
+                        String enviarTexto = String.format("%s;%s;%s;%s;%s;%s;%s;%s;;",id,newUrl,primeiroLink,marca,modelo,quilometros,ano,hasPhone);
+                        mainfuction.escreverNotifations(this, FileName, enviarTexto);
+                        //textoText = mainfuction.lerNotifications(this,FileName);
+                        //System.out.println(textoText);
                     }
                 }
             }
