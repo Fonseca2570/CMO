@@ -53,14 +53,23 @@ public class mainfuction {
 
     public static void escreverNotifations(Context context, String FileName, String enviarNotifications){
         FileOutputStream fos = null;
+        boolean jaExiste = false;
         String NotifationsGuardadas = lerNotifications(context,FileName);
         String[] linhas = NotifationsGuardadas.split("\n");
-        String[] ids = new String[linhas.length];
+        String[] linha = enviarNotifications.split(";");
+        String idACheckar = linha[0];
         for(int i = 0; i<linhas.length; i++){
-            ids[i] = linhas[i].split(";")[0];
-            System.out.println(ids[i]);
+            String id = linhas[i].split(";")[0];
+            if(id == idACheckar){
+                jaExiste = true;
+            }
         }
-        enviarNotifications = NotifationsGuardadas + enviarNotifications;
+        if(!jaExiste){
+            enviarNotifications = NotifationsGuardadas + enviarNotifications +"\n";
+        }
+        else{
+            enviarNotifications = NotifationsGuardadas;
+        }
         try {
             fos = context.openFileOutput(FileName, MODE_PRIVATE);
             fos.write(enviarNotifications.getBytes());
@@ -138,6 +147,7 @@ public class mainfuction {
         }
         return sb.toString();
     }
+
 
 }
 
