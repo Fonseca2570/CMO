@@ -1,9 +1,9 @@
 package com.ispgaya.standbot;
 
-public class criarCarro {
+public class Detalhes {
     String response;
 
-    public String getResponse(){
+    public String getResposta(){
         return response;
     }
 }
