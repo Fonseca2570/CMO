@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,21 +82,42 @@ public class config extends AppCompatActivity {
             }
         });
 
-        teste.setOnClickListener(new View.OnClickListener() {
+        /*teste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dbInterface = DBHandler.getDBHandler().create(DBInterface.class);
-                retrofit2.Call<Call.Details> call = dbInterface.addData("google.pt", "ford", "mustang", 0, "porto", "2020-03-25",
+                retrofit2.Call<Call.Details> call = dbInterface.addCarro(4, "google.pt", "ford", "mustang", 0, "porto", "2020-03-25",
                         "hugo", 2, "teste", 0, 300, 0, 2020, "2020-06-26");
 
                 call.enqueue(new Callback<Call.Details>() {
                     @Override
                     public void onResponse(retrofit2.Call<Call.Details> call, Response<Call.Details> response) {
-                        Toast.makeText(config.this, "Carro criado com sucesso", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(config.this, "Carro criado com sucesso", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure(retrofit2.Call<Call.Details> call, Throwable t) {
+
+                    }
+                });
+            }
+        });*/
+
+        teste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dbInterface = DBHandler.getDBHandler().create(DBInterface.class);
+                retrofit2.Call<Detalhes> call = dbInterface.existe(1);
+
+                call.enqueue(new Callback<Detalhes>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<Detalhes> call, Response<Detalhes> response) {
+                        Detalhes detalhes = response.body();
+                        Toast.makeText(config.this, "" + detalhes.getResposta(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(retrofit2.Call<Detalhes> call, Throwable t) {
 
                     }
                 });
