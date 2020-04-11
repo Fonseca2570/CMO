@@ -45,77 +45,41 @@
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-                <EditText
-                    android:id="@+id/minAno"
+                <org.florescu.android.rangeseekbar.RangeSeekBar
+                    android:id="@+id/ano"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:hint="MinAno"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    app:absoluteMinValue="100"
+                    app:absoluteMaxValue="0"
+                    app:valuesAboveThumbs="true"
+                    app:textAboveThumbsColor="@color/black"/>
 
-                <EditText
-                    android:id="@+id/maxAno"
+                <org.florescu.android.rangeseekbar.RangeSeekBar
+                    android:id="@+id/cavalo"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:hint="MaxAno"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    app:absoluteMinValue="100"
+                    app:absoluteMaxValue="0"
+                    app:valuesAboveThumbs="true"
+                    app:textAboveThumbsColor="@color/black"/>
 
-                <EditText
-                    android:id="@+id/minCavalos"
+                <org.florescu.android.rangeseekbar.RangeSeekBar
+                    android:id="@+id/km"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:hint="MinCavalos"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    app:absoluteMinValue="100"
+                    app:absoluteMaxValue="0"
+                    app:valuesAboveThumbs="true"
+                    app:textAboveThumbsColor="@color/black"/>
 
-                <EditText
-                    android:id="@+id/maxCavalos"
+                <org.florescu.android.rangeseekbar.RangeSeekBar
+                    android:id="@+id/preco"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:hint="MaxCavalos"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/minKm"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="MinKm"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/maxKm"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="MaxKm"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/minPreco"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="MinPreco"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/maxPreco"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="MaxPreco"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    app:absoluteMinValue="100"
+                    app:absoluteMaxValue="0"
+                    app:valuesAboveThumbs="true"
+                    app:textAboveThumbsColor="@color/black"/>
 
                 <EditText
                     android:id="@+id/desconto"

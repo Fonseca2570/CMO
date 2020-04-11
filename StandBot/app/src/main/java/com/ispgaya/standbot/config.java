@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.florescu.android.rangeseekbar.RangeSeekBar;
+
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -25,27 +27,63 @@ public class config extends AppCompatActivity {
     Button teste;
     DBInterface dbInterface;
 
+    RangeSeekBar anos, cavalos, kms, precos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
 
         teste = findViewById(R.id.teste);
-
-        minCavalos = findViewById(R.id.minCavalos);
-        maxCavalos = findViewById(R.id.maxCavalos);
-        minAno = findViewById(R.id.minAno);
-        maxAno = findViewById(R.id.maxAno);
-        minKm = findViewById(R.id.minKm);
-        maxKm = findViewById(R.id.maxKm);
-        minPreco = findViewById(R.id.minPreco);
-        maxPreco = findViewById(R.id.maxPreco);
+        anos = findViewById(R.id.ano);
+        cavalos = findViewById(R.id.cavalo);
+        kms = findViewById(R.id.km);
+        precos = findViewById(R.id.preco);
         desconto = findViewById(R.id.desconto);
         marca = findViewById(R.id.marca);
         combustivel = findViewById(R.id.combustivel);
         modelo = findViewById(R.id.modelo);
         save = findViewById(R.id.save);
 
+        anos.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+                Number min_value = bar.getSelectedMinValue();
+                Number max_value = bar.getSelectedMaxValue();
+
+                Toast.makeText(config.this, "Ano Min = " + min_value + "\n" + "Ano Max = " + max_value, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        cavalos.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+                Number min_value = bar.getSelectedMinValue();
+                Number max_value = bar.getSelectedMaxValue();
+
+                Toast.makeText(config.this, "Cavalos Min = " + min_value + "\n" + "Cavalos Max = " + max_value, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        kms.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+                Number min_value = bar.getSelectedMinValue();
+                Number max_value = bar.getSelectedMaxValue();
+
+                Toast.makeText(config.this, "Kms Min = " + min_value + "\n" + "Kms Max = " + max_value, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        precos.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+                Number min_value = bar.getSelectedMinValue();
+                Number max_value = bar.getSelectedMaxValue();
+
+                Toast.makeText(config.this, "Preço Min = " + min_value + "\n" + "Preço Max = " + max_value, Toast.LENGTH_LONG).show();
+            }
+        });
         //Initialize  and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
