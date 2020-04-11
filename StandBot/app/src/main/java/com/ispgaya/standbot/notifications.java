@@ -125,21 +125,23 @@ public class notifications extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         openDialogInfo(position);
-                        Toast.makeText(notifications.this, ListaCarros.get(position).marca + " " + ListaCarros.get(position).id, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(notifications.this, ListaCarros.get(position).marca + " " + ListaCarros.get(position).id, Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 myTitle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(notifications.this, ListaCarros.get(position).marca + " " + ListaCarros.get(position).id, Toast.LENGTH_SHORT).show();
+                        openDialogInfo(position);
+                        //Toast.makeText(notifications.this, ListaCarros.get(position).marca + " " + ListaCarros.get(position).id, Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 description.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(notifications.this, ListaCarros.get(position).marca + " " + ListaCarros.get(position).id, Toast.LENGTH_SHORT).show();
+                        openDialogInfo(position);
+                        //Toast.makeText(notifications.this, ListaCarros.get(position).marca + " " + ListaCarros.get(position).id, Toast.LENGTH_SHORT).show();
 
                     }
                 });
