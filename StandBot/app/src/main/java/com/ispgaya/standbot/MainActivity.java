@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean hasPhone;
     public long id;
     List<String> sitesJaVisitados = new ArrayList<String>();
+    DBInterface dbInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,13 @@ public class MainActivity extends AppCompatActivity {
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.notification:
+                        Thread[] threads = new Thread[Thread.activeCount()];
+                        Thread.enumerate(threads);
+                        for (int i= threads.length ; i==0; i--) {
+                            if (!threads[i].isInterrupted()) {
+                                threads[i].interrupt();
+                            }
+                        }
                         startActivity(new Intent(getApplicationContext(), notifications.class));
                         overridePendingTransition(0, 0);
                         return true;
@@ -140,8 +148,8 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                mainfuction.cleanFile(getApplicationContext(),FileName);
-                while (true) {
+                //mainfuction.cleanFile(getApplicationContext(), FileName);
+                while (!Thread.currentThread().isInterrupted()) {
                     final StringBuilder builder = new StringBuilder();
                     try {
                         Document doc = Jsoup.connect("https://www.standvirtual.com/carros/?search%5Bfilter_enum_damaged%5D=0&search%5Border%5D=created_at_first%3Adesc&search%5Bbrand_program_id%5D%5B0%5D=&search%5Bcountry%5D=").get();
@@ -173,11 +181,12 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            new CountDownTimer(60000, 1000) {
+                            new CountDownTimer(300000, 1000) {
 
                                 public void onTick(long millisUntilFinished) {
                                     result.setText("Aguardar: " + millisUntilFinished / 1000);
                                 }
+
                                 public void onFinish() {
                                     result.setText("A Pesquisar");
                                 }
@@ -186,8 +195,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                     try {
-                        System.out.println(mainfuction.lerNotifications(getApplicationContext(), FileName));
-                        TimeUnit.MINUTES.sleep(1);
+                        TimeUnit.MINUTES.sleep(5);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -293,6 +301,7 @@ public class MainActivity extends AppCompatActivity {
                     preco2 = preco1;
                 }
                 double desconto = 1 - (preco1 / preco2);
+                System.out.println("Thread ta a correr");
                 if (desconto >= descontoConfig) {
                     // TODO fazer validaçoes de configs externas e enviar para notificações
                     if (ano >= 2010) {
@@ -302,31 +311,34 @@ public class MainActivity extends AppCompatActivity {
                         //System.out.println("preço2: " + preco2);
 
                         // Tornar visible o botão de notification
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (contador == 0) {
-                                    contador += 1;
-                                    counter.setText(String.valueOf(contador));
-                                    counter.setVisibility(View.VISIBLE);
-                                    notBtn.setVisibility(View.VISIBLE);
-                                } else if (contador < 9){
-                                    contador += 1;
-                                    counter.setText(String.valueOf(contador));
+                        String enviarTexto = String.format("%s;%s;%s;%s;%s;;", id, newUrl, primeiroLink, marca, modelo);
+                        boolean aumentar = mainfuction.escreverNotifations(this, FileName, enviarTexto);
+                        if (aumentar) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (contador == 0) {
+                                        contador += 1;
+                                        counter.setText(String.valueOf(contador));
+                                        counter.setVisibility(View.VISIBLE);
+                                        notBtn.setVisibility(View.VISIBLE);
+                                    } else if (contador < 9) {
+                                        contador += 1;
+                                        counter.setText(String.valueOf(contador));
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                         //TODO adicionar dados ao txt
-                        String enviarTexto = String.format("%s;%s;%s;%s;%s;;",id,newUrl,primeiroLink,marca,modelo);
-                        mainfuction.escreverNotifations(this, FileName, enviarTexto);
-                        //textoText = mainfuction.lerNotifications(this,FileName);
-                        //System.out.println(textoText);
+
                     }
                 }
             }
         } catch (IOException e) {
 
         }
+
     }
+
 
 }
