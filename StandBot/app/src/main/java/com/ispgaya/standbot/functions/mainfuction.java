@@ -51,7 +51,7 @@ public class mainfuction {
         return modeloRet;
     }
 
-    public static void escreverNotifations(Context context, String FileName, String enviarNotifications){
+    public static boolean escreverNotifations(Context context, String FileName, String enviarNotifications){
         FileOutputStream fos = null;
         boolean jaExiste = false;
         String NotifationsGuardadas = lerNotifications(context,FileName);
@@ -60,7 +60,7 @@ public class mainfuction {
         String idACheckar = linha[0];
         for(int i = 0; i<linhas.length; i++){
             String id = linhas[i].split(";")[0];
-            if(id == idACheckar){
+            if(id.contains(idACheckar)){
                 jaExiste = true;
             }
         }
@@ -90,6 +90,7 @@ public class mainfuction {
                 }
             }
         }
+        return !jaExiste;
     }
 
     public static void cleanFile(Context context, String FileName){
@@ -146,6 +147,38 @@ public class mainfuction {
             }
         }
         return sb.toString();
+    }
+
+    public static void deleteNotification(Context context, String FileName, int position){
+        FileOutputStream fos = null;
+        String NotifationsGuardadas = lerNotifications(context,FileName);
+        String[] linhas = NotifationsGuardadas.split("\n");
+        String enviarNotification = "";
+        for(int j = 0; j < linhas.length; j++){
+            if(!(j == position)){
+                enviarNotification = enviarNotification + linhas[j] + "\n";
+            }
+        }
+        try {
+            fos = context.openFileOutput(FileName, MODE_PRIVATE);
+            fos.write(enviarNotification.getBytes());
+            System.out.println("Saved to "+ context.getFilesDir());
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        } finally {
+            if (fos != null){
+                try {
+                    fos.close();
+                }
+                catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 

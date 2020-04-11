@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".notifications">
+    tools:context=".notifications"
+    android:background="#0d1b26"
+    android:descendantFocusability="blocksDescendants"
+    >
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -17,5 +20,21 @@
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="55dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/semNotifcations"
+        android:text="Não tem Notificações guardadas"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:visibility="invisible"
+        />
 
 </RelativeLayout>
