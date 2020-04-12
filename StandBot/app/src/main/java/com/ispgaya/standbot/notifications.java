@@ -142,7 +142,6 @@ public class notifications extends AppCompatActivity {
                     public void onClick(View v) {
                         openDialogInfo(position);
                         //Toast.makeText(notifications.this, ListaCarros.get(position).marca + " " + ListaCarros.get(position).id, Toast.LENGTH_SHORT).show();
-
                     }
                 });
 
@@ -153,7 +152,6 @@ public class notifications extends AppCompatActivity {
         }
         listView = (ListView) findViewById(R.id.listView);
         semNotifications = (TextView) findViewById(R.id.semNotifcations);
-        //TODO IF lista de notificações vazias ele parte
 
         String dadosParaLista = mainfuction.lerNotifications(this,FileName);
         String[] linhas = dadosParaLista.split("\n");

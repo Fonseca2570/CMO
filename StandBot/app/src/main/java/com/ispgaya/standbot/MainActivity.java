@@ -36,6 +36,9 @@ import java.lang.String;
 
 import java.io.IOException;
 
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     //TODO Variaveis a retirar do config para já estão hardCoded
@@ -204,6 +207,24 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
+    public void addBase() {
+        dbInterface = DBHandler.getDBHandler().create(DBInterface.class);
+        retrofit2.Call<Detalhes> call = dbInterface.existe(1);
+
+        call.enqueue(new Callback<Detalhes>() {
+            @Override
+            public void onResponse(retrofit2.Call<Detalhes> call, Response<Detalhes> response) {
+                Detalhes detalhes = response.body();
+                //Toast.makeText(this, "" + detalhes.getResposta(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<Detalhes> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void getDetails(String href) {
         String idString = "";
         try {
@@ -267,6 +288,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // TODO Adicionar aqui a inserção na base de dados
+
 
             // TODO fazer outro html request para comparar preços com os dados acima (Feito)
             int quilometrosDe = quilometros - variacaoKM;

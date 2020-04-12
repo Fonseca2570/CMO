@@ -49,37 +49,37 @@
                     android:id="@+id/ano"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    app:absoluteMinValue="100"
-                    app:absoluteMaxValue="0"
-                    app:valuesAboveThumbs="true"
-                    app:textAboveThumbsColor="@color/black"/>
+                    app:absoluteMaxValue="1950"
+                    app:absoluteMinValue="2020"
+                    app:textAboveThumbsColor="@color/black"
+                    app:valuesAboveThumbs="true" />
 
                 <org.florescu.android.rangeseekbar.RangeSeekBar
                     android:id="@+id/cavalo"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    app:absoluteMinValue="100"
                     app:absoluteMaxValue="0"
-                    app:valuesAboveThumbs="true"
-                    app:textAboveThumbsColor="@color/black"/>
+                    app:absoluteMinValue="1000"
+                    app:textAboveThumbsColor="@color/black"
+                    app:valuesAboveThumbs="true" />
 
                 <org.florescu.android.rangeseekbar.RangeSeekBar
                     android:id="@+id/km"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    app:absoluteMinValue="100"
                     app:absoluteMaxValue="0"
-                    app:valuesAboveThumbs="true"
-                    app:textAboveThumbsColor="@color/black"/>
+                    app:absoluteMinValue="500000"
+                    app:textAboveThumbsColor="@color/black"
+                    app:valuesAboveThumbs="true" />
 
                 <org.florescu.android.rangeseekbar.RangeSeekBar
                     android:id="@+id/preco"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    app:absoluteMinValue="100"
                     app:absoluteMaxValue="0"
-                    app:valuesAboveThumbs="true"
-                    app:textAboveThumbsColor="@color/black"/>
+                    app:absoluteMinValue="200000"
+                    app:textAboveThumbsColor="@color/black"
+                    app:valuesAboveThumbs="true" />
 
                 <EditText
                     android:id="@+id/desconto"
@@ -111,6 +111,13 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/result"
                     app:layout_constraintVertical_bias="0.261" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="104dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
