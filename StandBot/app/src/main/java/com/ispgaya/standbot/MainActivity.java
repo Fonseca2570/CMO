@@ -226,18 +226,19 @@ public class MainActivity extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
 
-        retrofit2.Call<Call.Details> call = dbInterface.addCarro(id, href, marca, modelo, quilometros, "", dateFormat.format(date),
-                nomeAnunciador, valor, titulo, phone, potencia, pro, ano, "");
+        retrofit2.Call<Detalhes> call = dbInterface.addCarro(id, href, marca, modelo, quilometros, "", dateFormat.format(date),
+                nomeAnunciador, valor, titulo, phone, potencia, pro, ano, "0000-00-00");
 
-        call.enqueue(new Callback<Call.Details>() {
+        call.enqueue(new Callback<Detalhes>() {
             @Override
-            public void onResponse(retrofit2.Call<Call.Details> call, Response<Call.Details> response) {
+            public void onResponse(retrofit2.Call<Detalhes> call, Response<Detalhes> response) {
                 //Toast.makeText(this, "Carro criado com sucesso", Toast.LENGTH_LONG).show();
-                System.out.println("Criado com sucesso");
+                Detalhes detalhes = response.body();
+                System.out.println("Criado com sucesso--------" + detalhes.getResposta());
             }
 
             @Override
-            public void onFailure(retrofit2.Call<Call.Details> call, Throwable t) {
+            public void onFailure(retrofit2.Call<Detalhes> call, Throwable t) {
                 System.out.println(t);
             }
         });
