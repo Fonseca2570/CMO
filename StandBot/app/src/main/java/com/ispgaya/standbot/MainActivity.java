@@ -9,6 +9,7 @@ import com.ispgaya.standbot.functions.*;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,7 +26,10 @@ import org.jsoup.select.Selector;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -207,20 +211,34 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    public void addBase() {
+    public void addBase(String href) {
         dbInterface = DBHandler.getDBHandler().create(DBInterface.class);
-        retrofit2.Call<Detalhes> call = dbInterface.existe(1);
+        int pro = 0; int phone = 0;
+        if(tipoAnunciador.contains("Profissional")){
+            pro = 0;
+        }
+        else{
+            pro = 1;
+        }
+        if(hasPhone == true){
+            phone = 1;
+        }
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
 
-        call.enqueue(new Callback<Detalhes>() {
+        retrofit2.Call<Call.Details> call = dbInterface.addCarro(id, href, marca, modelo, quilometros, "", dateFormat.format(date),
+                nomeAnunciador, valor, titulo, phone, potencia, pro, ano, "");
+
+        call.enqueue(new Callback<Call.Details>() {
             @Override
-            public void onResponse(retrofit2.Call<Detalhes> call, Response<Detalhes> response) {
-                Detalhes detalhes = response.body();
-                //Toast.makeText(this, "" + detalhes.getResposta(), Toast.LENGTH_LONG).show();
+            public void onResponse(retrofit2.Call<Call.Details> call, Response<Call.Details> response) {
+                //Toast.makeText(this, "Carro criado com sucesso", Toast.LENGTH_LONG).show();
+                System.out.println("Criado com sucesso");
             }
 
             @Override
-            public void onFailure(retrofit2.Call<Detalhes> call, Throwable t) {
-
+            public void onFailure(retrofit2.Call<Call.Details> call, Throwable t) {
+                System.out.println(t);
             }
         });
     }
@@ -288,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // TODO Adicionar aqui a inserção na base de dados
-
+            addBase(href);
 
             // TODO fazer outro html request para comparar preços com os dados acima (Feito)
             int quilometrosDe = quilometros - variacaoKM;
@@ -323,7 +341,6 @@ public class MainActivity extends AppCompatActivity {
                     preco2 = preco1;
                 }
                 double desconto = 1 - (preco1 / preco2);
-                System.out.println("Thread ta a correr");
                 if (desconto >= descontoConfig) {
                     // TODO fazer validaçoes de configs externas e enviar para notificações
                     if (ano >= 2010) {
