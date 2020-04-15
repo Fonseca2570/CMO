@@ -21,7 +21,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
                 <!--Put form controls here-->
-                <EditText
+                <Button
                     android:id="@+id/marca"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -29,57 +29,13 @@
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-                <EditText
+                <Button
                     android:id="@+id/combustivel"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:hint="combustivel"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/modelo"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="modelo"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <org.florescu.android.rangeseekbar.RangeSeekBar
-                    android:id="@+id/ano"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    app:absoluteMaxValue="1950"
-                    app:absoluteMinValue="2020"
-                    app:textAboveThumbsColor="@color/black"
-                    app:valuesAboveThumbs="true" />
-
-                <org.florescu.android.rangeseekbar.RangeSeekBar
-                    android:id="@+id/cavalo"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    app:absoluteMaxValue="0"
-                    app:absoluteMinValue="1000"
-                    app:textAboveThumbsColor="@color/black"
-                    app:valuesAboveThumbs="true" />
-
-                <org.florescu.android.rangeseekbar.RangeSeekBar
-                    android:id="@+id/km"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    app:absoluteMaxValue="0"
-                    app:absoluteMinValue="500000"
-                    app:textAboveThumbsColor="@color/black"
-                    app:valuesAboveThumbs="true" />
-
-                <org.florescu.android.rangeseekbar.RangeSeekBar
-                    android:id="@+id/preco"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    app:absoluteMaxValue="0"
-                    app:absoluteMinValue="200000"
-                    app:textAboveThumbsColor="@color/black"
-                    app:valuesAboveThumbs="true" />
 
                 <EditText
                     android:id="@+id/desconto"
@@ -90,33 +46,91 @@
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
+                <!--EditText
+                    android:id="@+id/modelo"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="modelo"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" /-->
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Ano"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <org.florescu.android.rangeseekbar.RangeSeekBar
+                    android:id="@+id/ano"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    app:absoluteMaxValue="1950"
+                    app:absoluteMinValue="2020"
+                    app:textAboveThumbsColor="@color/black"
+                    app:valuesAboveThumbs="true" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cavalos"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <org.florescu.android.rangeseekbar.RangeSeekBar
+                    android:id="@+id/cavalo"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    app:absoluteMaxValue="0"
+                    app:absoluteMinValue="1000"
+                    app:textAboveThumbsColor="@color/black"
+                    app:valuesAboveThumbs="true" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Km"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <org.florescu.android.rangeseekbar.RangeSeekBar
+                    android:id="@+id/km"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    app:absoluteMaxValue="0"
+                    app:absoluteMinValue="500000"
+                    app:textAboveThumbsColor="@color/black"
+                    app:valuesAboveThumbs="true" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Preço"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <org.florescu.android.rangeseekbar.RangeSeekBar
+                    android:id="@+id/preco"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    app:absoluteMaxValue="0"
+                    app:absoluteMinValue="200000"
+                    app:textAboveThumbsColor="@color/black"
+                    app:valuesAboveThumbs="true" />
+
                 <Button
                     android:id="@+id/save"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Save" />
-
-                <Button
-                    android:id="@+id/teste"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="141dp"
-                    android:background="@drawable/roundbutton"
-                    android:backgroundTint="@android:color/holo_green_dark"
-                    android:text="teste"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.492"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/result"
-                    app:layout_constraintVertical_bias="0.261" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="104dp"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
 
             </LinearLayout>
         </ScrollView>

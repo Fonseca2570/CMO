@@ -105,9 +105,6 @@ public class logoSwap {
         else if(logo.contains("lancia")){
             return R.drawable.lancia;
         }
-        else if(logo.contains("rover")){
-            return R.drawable.rover;
-        }
         else if(logo.contains("lexus")){
             return R.drawable.lexus;
         }
