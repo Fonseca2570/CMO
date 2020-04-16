@@ -1,7 +1,9 @@
 package com.ispgaya.standbot;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +26,9 @@ public class config extends AppCompatActivity {
     boolean[] marcasChecked, combustivelChecked;
     ArrayList<Integer> marcaItems = new ArrayList<>();
     ArrayList<Integer> combustivelItems = new ArrayList<>();
+
+    public String testeM = "";
+    public String testeC = "";
 
     EditText desconto;
     Button save, marcas, combustiveis;
@@ -122,23 +127,24 @@ public class config extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //checkData();
+                //limparCombustiveis();
+                //limparMarcas();
             }
         });
 
         marcas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buscarMarcas();
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(config.this);
                 mBuilder.setTitle("Marcas");
                 mBuilder.setMultiChoiceItems(marcasSelect, marcasChecked, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position, boolean isChecked) {
                         if(isChecked){
-                            if( !marcaItems.contains(position)){
-                                marcaItems.add(position);
-                            }else{
-                                marcaItems.remove(position);
-                            }
+                            marcaItems.add(position);
+                        }else {
+                            marcaItems.remove(Integer.valueOf(position));
                         }
                     }
                 });
@@ -153,6 +159,7 @@ public class config extends AppCompatActivity {
                                 item = item + ", ";
                             }
                         }
+                        guardarMarcas(item);
                     }
                 });
                 mBuilder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -161,6 +168,7 @@ public class config extends AppCompatActivity {
                         for (int i = 0; i < marcasChecked.length; i++){
                             marcasChecked[i] = false;
                             marcaItems.clear();
+                            limparMarcas();
                         }
                     }
                 });
@@ -172,17 +180,16 @@ public class config extends AppCompatActivity {
         combustiveis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buscarCombustiveis();
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(config.this);
                 mBuilder.setTitle("Combustiveis");
                 mBuilder.setMultiChoiceItems(combustivelSelect, combustivelChecked, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position, boolean isChecked) {
-                        if(isChecked){
-                            if( !combustivelItems.contains(position)){
-                                combustivelItems.add(position);
-                            }else{
-                                combustivelItems.remove(position);
-                            }
+                        if(isChecked) {
+                            combustivelItems.add(position);
+                        }else{
+                            combustivelItems.remove(Integer.valueOf(position));
                         }
                     }
                 });
@@ -197,6 +204,7 @@ public class config extends AppCompatActivity {
                                 item = item + ", ";
                             }
                         }
+                        guardarCombustiveis(item);
                     }
                 });
                 mBuilder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -205,6 +213,7 @@ public class config extends AppCompatActivity {
                         for (int i = 0; i < combustivelChecked.length; i++){
                             combustivelChecked[i] = false;
                             combustivelItems.clear();
+                            limparCombustiveis();
                         }
                     }
                 });
@@ -212,6 +221,86 @@ public class config extends AppCompatActivity {
                 mDialog.show();
             }
         });
+    }
+
+    public void guardarMarcas(String item){
+        String[] _marcas = getResources().getStringArray(R.array.marcas);
+        SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.Marcas", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        for (int i = 0; i < _marcas.length; i++){
+            if(item.contains(_marcas[i])){
+                editor.putBoolean(_marcas[i], true);
+            }else{
+                editor.putBoolean(_marcas[i], false);
+            }
+        }
+        editor.apply();
+        sp = getSharedPreferences("com.ispgaya.standbot.MarcasString", Context.MODE_PRIVATE);
+        sp.edit().putString("Marcas", item).apply();
+    }
+
+    public void buscarMarcas(){
+        String[] _marcas = getResources().getStringArray(R.array.marcas);
+        SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.Marcas", Context.MODE_PRIVATE);
+        for (int i = 0; i < _marcas.length; i++){
+            if(sp.getBoolean(_marcas[i], false)){
+                marcaItems.add(i);
+                marcasChecked[i] = true;
+                testeM = testeM + marcasSelect[i];
+                if(i != marcaItems.size() - 1){
+                    testeM = testeM + ", ";
+                }
+            }else{
+                marcasChecked[i] = false;
+            }
+        }
+    }
+
+    public void limparMarcas() {
+        SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.Marcas", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear().apply();
+    }
+
+    public void guardarCombustiveis(String item){
+        String[] _combustiveis = getResources().getStringArray(R.array.combustiveis);
+        SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.Combustiveis", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        for (int i = 0; i < _combustiveis.length; i++){
+            if(item.contains(_combustiveis[i])){
+                editor.putBoolean(_combustiveis[i], true);
+            }else{
+                editor.putBoolean(_combustiveis[i], false);
+            }
+        }
+        editor.apply();
+        sp = getSharedPreferences("com.ispgaya.standbot.CombustiveisString", Context.MODE_PRIVATE);
+        sp.edit().putString("Combustiveis", item).apply();
+    }
+
+    public void buscarCombustiveis(){
+        String[] _combustiveis = getResources().getStringArray(R.array.combustiveis);
+        SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.Combustiveis", Context.MODE_PRIVATE);
+        for (int i = 0; i < _combustiveis.length; i++){
+            if(sp.getBoolean(_combustiveis[i], false)){
+                combustivelItems.add(i);
+                combustivelChecked[i] = true;
+                testeC = testeC + combustivelSelect[i];
+                if(i != combustivelItems.size() - 1){
+                    testeC = testeC + ", ";
+                }
+            }else{
+                combustivelChecked[i] = false;
+            }
+        }
+    }
+
+    public void limparCombustiveis() {
+        SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.Combustiveis", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear().apply();
     }
 }
 
