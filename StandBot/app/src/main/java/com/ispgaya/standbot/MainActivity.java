@@ -48,11 +48,12 @@ public class MainActivity extends AppCompatActivity {
     //TODO Variaveis a retirar do config para já estão hardCoded
     public int variacaoKM = 50000;
     public int anoMinimo = 1990;
+    public int anoMaximo = 2019;
     public int variacaoAno = 1;
     public int cavalosMin = 50;
+    public int cavalosMax = 999;
     public int variacaoCavalos = 10;
     public double descontoConfig = 0.10;
-    public String textoText = "";
 
     private Button getBtn;
     private TextView result;
@@ -306,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            // TODO Adicionar aqui a inserção na base de dados
+            // TODO Adicionar aqui a inserção na base de dados (FEito)
             addBase(href);
 
             // TODO fazer outro html request para comparar preços com os dados acima (Feito)
@@ -345,11 +346,6 @@ public class MainActivity extends AppCompatActivity {
                 if (desconto >= descontoConfig) {
                     // TODO fazer validaçoes de configs externas e enviar para notificações
                     if (ano >= 2010) {
-                        //System.out.println("desconto: " + desconto);
-                        //System.out.println("url: " + newUrl);
-                        //System.out.println("preço1: " + preco1);
-                        //System.out.println("preço2: " + preco2);
-
                         // Tornar visible o botão de notification
                         String enviarTexto = String.format("%s;%s;%s;%s;%s;;", id, newUrl, primeiroLink, marca, modelo);
                         boolean aumentar = mainfuction.escreverNotifations(this, FileName, enviarTexto);
@@ -369,8 +365,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                        //TODO adicionar dados ao txt
-
                     }
                 }
             }

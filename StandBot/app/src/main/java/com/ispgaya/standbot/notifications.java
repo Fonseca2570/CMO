@@ -175,7 +175,7 @@ public class notifications extends AppCompatActivity {
                 ArrayImagens[i] = logoSwap.switchlogo(adicionar.marca);
                 ArrayMarca[i] = capitalize(adicionar.marca);
                 ;
-                ArrayModelo[i] = adicionar.modelo;
+                ArrayModelo[i] = capitalize(adicionar.modelo);
 
             }
 
