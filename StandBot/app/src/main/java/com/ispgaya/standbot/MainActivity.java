@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ispgaya.standbot.functions.*;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telecom.Call;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -79,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
     List<String> sitesJaVisitados = new ArrayList<String>();
     DBInterface dbInterface;
 
+    Button teste;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,6 +123,19 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
+            }
+        });
+
+        teste = findViewById(R.id.teste);
+        teste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.MarcasString", Context.MODE_PRIVATE);
+                String marcas = sp.getString("Marcas", "");
+                Log.i("Marcas: ", marcas);
+                sp = getSharedPreferences("com.ispgaya.standbot.CombustiveisString", Context.MODE_PRIVATE);
+                String combustiveis = sp.getString("Combustiveis", "");
+                Log.i("Combustiveis: ", combustiveis);
             }
         });
 
