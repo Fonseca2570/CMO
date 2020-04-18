@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">StandVago</string>
     <string name="app_name">StandBot</string>
     <string-array name="marcas">
         <item>Abarth</item>
