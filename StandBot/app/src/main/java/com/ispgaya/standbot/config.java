@@ -34,6 +34,7 @@ public class config extends AppCompatActivity {
     Button save, marcas, combustiveis;
 
     RangeSeekBar anos, cavalos, kms, precos;
+    Number anos_min_value, anos_max_value, cavalos_min_value, cavalos_max_value, kms_min_value, kms_max_value, precos_min_value, precos_max_value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,44 +55,54 @@ public class config extends AppCompatActivity {
         combustiveis = findViewById(R.id.combustivel);
         save = findViewById(R.id.save);
 
+        buscarDados();
+        anos.setSelectedMinValue(anos_min_value);
+        anos.setSelectedMaxValue(anos_max_value);
+        cavalos.setSelectedMinValue(cavalos_min_value);
+        cavalos.setSelectedMaxValue(cavalos_max_value);
+        kms.setSelectedMinValue(kms_min_value);
+        kms.setSelectedMaxValue(kms_max_value);
+        precos.setSelectedMinValue(precos_min_value);
+        precos.setSelectedMaxValue(precos_max_value);
+
         anos.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                Number min_value = bar.getSelectedMinValue();
-                Number max_value = bar.getSelectedMaxValue();
+                anos_min_value = bar.getSelectedMinValue();
+                anos_max_value = bar.getSelectedMaxValue();
 
-                Toast.makeText(config.this, "Ano Min = " + min_value + "\n" + "Ano Max = " + max_value, Toast.LENGTH_LONG).show();
+                Toast.makeText(config.this, "Ano Min = " + anos_min_value + "\n" + "Ano Max = " + anos_max_value, Toast.LENGTH_LONG).show();
             }
         });
 
         cavalos.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                Number min_value = bar.getSelectedMinValue();
-                Number max_value = bar.getSelectedMaxValue();
+                cavalos_min_value = bar.getSelectedMinValue();
+                cavalos_max_value = bar.getSelectedMaxValue();
 
-                Toast.makeText(config.this, "Cavalos Min = " + min_value + "\n" + "Cavalos Max = " + max_value, Toast.LENGTH_LONG).show();
+                Toast.makeText(config.this, "Cavalos Min = " + cavalos_min_value + "\n" + "Cavalos Max = " + cavalos_max_value, Toast.LENGTH_LONG).show();
             }
         });
 
         kms.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                Number min_value = bar.getSelectedMinValue();
-                Number max_value = bar.getSelectedMaxValue();
+                kms_min_value = bar.getSelectedMinValue();
+                kms_max_value = bar.getSelectedMaxValue();
 
 
-                Toast.makeText(config.this, "Kms Min = " + min_value + "\n" + "Kms Max = " + max_value, Toast.LENGTH_LONG).show();
+                Toast.makeText(config.this, "Kms Min = " + kms_min_value + "\n" + "Kms Max = " + kms_max_value, Toast.LENGTH_LONG).show();
             }
         });
 
         precos.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                Number min_value = bar.getSelectedMinValue();
-                Number max_value = bar.getSelectedMaxValue();
+                precos_min_value = bar.getSelectedMinValue();
+                precos_max_value = bar.getSelectedMaxValue();
 
-                Toast.makeText(config.this, "Preço Min = " + min_value + "\n" + "Preço Max = " + max_value, Toast.LENGTH_LONG).show();
+                Toast.makeText(config.this, "Preço Min = " + precos_min_value + "\n" + "Preço Max = " + precos_max_value, Toast.LENGTH_LONG).show();
             }
         });
         //Initialize  and Assign Variable
@@ -127,8 +138,10 @@ public class config extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //checkData();
-                limparCombustiveis();
-                limparMarcas();
+                //limparCombustiveis();
+                //limparMarcas();
+                //limparDados();
+                guardarDados();
             }
         });
 
@@ -299,6 +312,39 @@ public class config extends AppCompatActivity {
 
     public void limparCombustiveis() {
         SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.Combustiveis", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear().apply();
+    }
+
+    public void guardarDados(){
+        SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.Dados", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.putInt("anos_min", (Integer) anos_min_value);
+        editor.putInt("anos_max", (Integer) anos_max_value);
+        editor.putInt("cavalos_min", (Integer) cavalos_min_value);
+        editor.putInt("cavalos_max", (Integer) cavalos_max_value);
+        editor.putInt("kms_min", (Integer) kms_min_value);
+        editor.putInt("kms_max", (Integer) kms_max_value);
+        editor.putInt("precos_min", (Integer) precos_min_value);
+        editor.putInt("precos_max", (Integer) precos_max_value);
+        editor.apply();
+    }
+
+    public void buscarDados(){
+        SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.Dados", Context.MODE_PRIVATE);
+        anos_min_value = sp.getInt("anos_min", 1950);
+        anos_max_value = sp.getInt("anos_max", 2020);
+        cavalos_min_value = sp.getInt("cavalos_min", 0);
+        cavalos_max_value = sp.getInt("cavalos_max", 1000);
+        kms_min_value = sp.getInt("kms_min", 0);
+        kms_max_value = sp.getInt("kms_max", 500000);
+        precos_min_value = sp.getInt("precos_min", 0);
+        precos_max_value = sp.getInt("precos_max", 200000);
+    }
+
+    public void limparDados(){
+        SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.Dados", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear().apply();
     }
