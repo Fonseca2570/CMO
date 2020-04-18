@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     //TODO Variaveis a retirar do config para já estão hardCoded
     public int variacaoKM = 50000;
+    public int kmMin = 0;
+    public int kmMax = 500000;
     public int anoMinimo = 1990;
     public int anoMaximo = 2019;
     public int variacaoAno = 1;
@@ -57,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
     public int cavalosMax = 999;
     public int variacaoCavalos = 10;
     public double descontoConfig = 0.10;
+    public int precoMin;
+    public int precoMax;
+    public String[] listaMarcas;
+    public String[] listacombustiveis;
+
 
     private Button getBtn;
     private TextView result;
@@ -363,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
                 double desconto = 1 - (preco1 / preco2);
                 if (desconto >= descontoConfig) {
                     // TODO fazer validaçoes de configs externas e enviar para notificações
-                    if (ano >= 2010) {
+                    if (ano >= anoMinimo && ano<= anoMaximo && potencia >= cavalosMin && potencia <= cavalosMax && quilometros >= kmMin && quilometros <= kmMax && valor >= precoMin && valor <= precoMax) {
                         // Tornar visible o botão de notification
                         String enviarTexto = String.format("%s;%s;%s;%s;%s;;", id, newUrl, primeiroLink, marca, modelo);
                         boolean aumentar = mainfuction.escreverNotifations(this, FileName, enviarTexto);

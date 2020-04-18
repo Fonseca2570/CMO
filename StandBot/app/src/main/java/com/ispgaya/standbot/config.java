@@ -127,8 +127,8 @@ public class config extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //checkData();
-                //limparCombustiveis();
-                //limparMarcas();
+                limparCombustiveis();
+                limparMarcas();
             }
         });
 
