@@ -135,6 +135,15 @@ public class MainActivity extends AppCompatActivity {
                 sp = getSharedPreferences("com.ispgaya.standbot.CombustiveisString", Context.MODE_PRIVATE);
                 String combustiveis = sp.getString("Combustiveis", "");
                 Log.i("Combustiveis: ", combustiveis);
+                sp = getSharedPreferences("com.ispgaya.standbot.Dados", Context.MODE_PRIVATE);
+                Log.i("Anos Min", String.valueOf(sp.getInt("anos_min", 0)));
+                Log.i("Anos Max", String.valueOf(sp.getInt("anos_max", 0)));
+                Log.i("Cavalos Min", String.valueOf(sp.getInt("cavalos_min", 0)));
+                Log.i("Cavalos Max", String.valueOf(sp.getInt("cavalos_max", 0)));
+                Log.i("Kms Mins", String.valueOf(sp.getInt("kms_min", 0)));
+                Log.i("Kms Max", String.valueOf(sp.getInt("kms_max", 0)));
+                Log.i("Preco Mim", String.valueOf(sp.getInt("precos_min", 0)));
+                Log.i("Preco Max", String.valueOf(sp.getInt("precos_max", 0)));
             }
         });
 
