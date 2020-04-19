@@ -134,26 +134,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         teste = findViewById(R.id.teste);
-        teste.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.MarcasString", Context.MODE_PRIVATE);
-                String marcas = sp.getString("Marcas", "");
-                Log.i("Marcas: ", marcas);
-                sp = getSharedPreferences("com.ispgaya.standbot.CombustiveisString", Context.MODE_PRIVATE);
-                String combustiveis = sp.getString("Combustiveis", "");
-                Log.i("Combustiveis: ", combustiveis);
-                sp = getSharedPreferences("com.ispgaya.standbot.Dados", Context.MODE_PRIVATE);
-                Log.i("Anos Min", String.valueOf(sp.getInt("anos_min", 0)));
-                Log.i("Anos Max", String.valueOf(sp.getInt("anos_max", 0)));
-                Log.i("Cavalos Min", String.valueOf(sp.getInt("cavalos_min", 0)));
-                Log.i("Cavalos Max", String.valueOf(sp.getInt("cavalos_max", 0)));
-                Log.i("Kms Mins", String.valueOf(sp.getInt("kms_min", 0)));
-                Log.i("Kms Max", String.valueOf(sp.getInt("kms_max", 0)));
-                Log.i("Preco Mim", String.valueOf(sp.getInt("precos_min", 0)));
-                Log.i("Preco Max", String.valueOf(sp.getInt("precos_max", 0)));
-            }
-        });
+
 
         result = (TextView) findViewById(R.id.result);
         getBtn = (Button) findViewById(R.id.getBtn);
@@ -186,7 +167,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void aplicarConfigs(){
+        SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.MarcasString", Context.MODE_PRIVATE);
+        String marcas = sp.getString("Marcas", "");
+        Log.i("Marcas: ", marcas);
+        sp = getSharedPreferences("com.ispgaya.standbot.CombustiveisString", Context.MODE_PRIVATE);
+        String combustiveis = sp.getString("Combustiveis", "");
+        Log.i("Combustiveis: ", combustiveis);
+        sp = getSharedPreferences("com.ispgaya.standbot.Dados", Context.MODE_PRIVATE);
+        Log.i("Anos Min", String.valueOf(sp.getInt("anos_min", 1900)));
+        anoMinimo = sp.getInt("anos_min", 1900);
+        System.out.println("Ano MINIMO ========="+ anoMinimo);
+        Log.i("Anos Max", String.valueOf(sp.getInt("anos_max", 2019)));
+        Log.i("Cavalos Min", String.valueOf(sp.getInt("cavalos_min", 0)));
+        Log.i("Cavalos Max", String.valueOf(sp.getInt("cavalos_max", 1000)));
+        Log.i("Kms Mins", String.valueOf(sp.getInt("kms_min", 0)));
+        Log.i("Kms Max", String.valueOf(sp.getInt("kms_max", 500000)));
+        Log.i("Preco Mim", String.valueOf(sp.getInt("precos_min", 0)));
+        Log.i("Preco Max", String.valueOf(sp.getInt("precos_max", 200000)));
+    }
+
     private void getWebsite() {
+        aplicarConfigs();
         new Thread(new Runnable() {
             @Override
             public void run() {
