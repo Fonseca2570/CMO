@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     public int precoMax;
     public String[] listaMarcas;
     public String[] listacombustiveis;
+    public String marcas = "";
+    public String combustiveis = "";
 
 
     private Button getBtn;
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     public int contador = 0;
     public String combustivel = "";
+    public String combustivelPreformat = "";
     public String marca = "";
     public String modelo = "";
     public String titulo = "";
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+        aplicarConfigs();
         teste = findViewById(R.id.teste);
 
 
@@ -169,26 +172,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void aplicarConfigs(){
         SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.MarcasString", Context.MODE_PRIVATE);
-        String marcas = sp.getString("Marcas", "");
+        marcas = sp.getString("Marcas", "");
         Log.i("Marcas: ", marcas);
         sp = getSharedPreferences("com.ispgaya.standbot.CombustiveisString", Context.MODE_PRIVATE);
-        String combustiveis = sp.getString("Combustiveis", "");
-        Log.i("Combustiveis: ", combustiveis);
+        combustiveis = sp.getString("Combustiveis", "");
+        //Log.i("Combustiveis: ", combustiveis);
         sp = getSharedPreferences("com.ispgaya.standbot.Dados", Context.MODE_PRIVATE);
-        Log.i("Anos Min", String.valueOf(sp.getInt("anos_min", 1900)));
+        //Log.i("Anos Min", String.valueOf(sp.getInt("anos_min", 1900)));
         anoMinimo = sp.getInt("anos_min", 1900);
-        System.out.println("Ano MINIMO ========="+ anoMinimo);
-        Log.i("Anos Max", String.valueOf(sp.getInt("anos_max", 2019)));
-        Log.i("Cavalos Min", String.valueOf(sp.getInt("cavalos_min", 0)));
-        Log.i("Cavalos Max", String.valueOf(sp.getInt("cavalos_max", 1000)));
-        Log.i("Kms Mins", String.valueOf(sp.getInt("kms_min", 0)));
-        Log.i("Kms Max", String.valueOf(sp.getInt("kms_max", 500000)));
-        Log.i("Preco Mim", String.valueOf(sp.getInt("precos_min", 0)));
-        Log.i("Preco Max", String.valueOf(sp.getInt("precos_max", 200000)));
+        anoMaximo = sp.getInt("anos_max", 2019);
+        cavalosMin = sp.getInt("cavalos_min", 0);
+        cavalosMax = sp.getInt("cavalos_max", 1000);
+        kmMin = sp.getInt("kms_min", 0);
+        kmMax = sp.getInt("kms_max", 500000);
+        precoMin = sp.getInt("precos_min", 0);
+        precoMax = sp.getInt("precos_max", 200000);
     }
 
     private void getWebsite() {
-        aplicarConfigs();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -305,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
                     combustivel = a.next().text();
                     combustivel = combustivel.trim();
                     combustivel = combustivel.toLowerCase();
+                    combustivelPreformat = combustivel;
                     if (combustivel.contains("híbrido") && combustivel.contains("gasolina")) {
                         combustivel = "hibride-gaz";
                     }
@@ -380,26 +382,28 @@ public class MainActivity extends AppCompatActivity {
                 }
                 double desconto = 1 - (preco1 / preco2);
                 if (desconto >= descontoConfig) {
-                    // TODO fazer validaçoes de configs externas e enviar para notificações
+                    // TODO fazer validaçoes de configs externas e enviar para notificações (Verificar se funciona no portatil NAO TESTADO
                     if (ano >= anoMinimo && ano<= anoMaximo && potencia >= cavalosMin && potencia <= cavalosMax && quilometros >= kmMin && quilometros <= kmMax && valor >= precoMin && valor <= precoMax) {
-                        // Tornar visible o botão de notification
-                        String enviarTexto = String.format("%s;%s;%s;%s;%s;;", id, newUrl, primeiroLink, marca, modelo);
-                        boolean aumentar = mainfuction.escreverNotifations(this, FileName, enviarTexto);
-                        if (aumentar) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (contador == 0) {
-                                        contador += 1;
-                                        counter.setText(String.valueOf(contador));
-                                        counter.setVisibility(View.VISIBLE);
-                                        notBtn.setVisibility(View.VISIBLE);
-                                    } else if (contador < 9) {
-                                        contador += 1;
-                                        counter.setText(String.valueOf(contador));
+                        if((marcas=="" || marcas.contains(marca))&&(combustiveis=="" || combustiveis.contains(combustivelPreformat))){
+                            // Tornar visible o botão de notification
+                            String enviarTexto = String.format("%s;%s;%s;%s;%s;;", id, newUrl, primeiroLink, marca, modelo);
+                            boolean aumentar = mainfuction.escreverNotifations(this, FileName, enviarTexto);
+                            if (aumentar) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (contador == 0) {
+                                            contador += 1;
+                                            counter.setText(String.valueOf(contador));
+                                            counter.setVisibility(View.VISIBLE);
+                                            notBtn.setVisibility(View.VISIBLE);
+                                        } else if (contador < 9) {
+                                            contador += 1;
+                                            counter.setText(String.valueOf(contador));
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
                     }
                 }
