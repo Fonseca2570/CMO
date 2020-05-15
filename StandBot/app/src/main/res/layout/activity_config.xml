@@ -122,7 +122,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     app:absoluteMaxValue="0"
-                    app:absoluteMinValue="200000"
+                    app:absoluteMinValue="100000"
                     app:textAboveThumbsColor="@color/black"
                     app:valuesAboveThumbs="true" />
 

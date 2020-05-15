@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public int cavalosMin = 50;
     public int cavalosMax = 999;
     public int variacaoCavalos = 10;
-    public double descontoConfig = 0.01;
+    public double descontoConfig = 0.1;
     public int precoMin;
     public int precoMax;
     public String[] listaMarcas;
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
         kmMin = sp.getInt("kms_min", 0);
         kmMax = sp.getInt("kms_max", 500000);
         precoMin = sp.getInt("precos_min", 0);
-        precoMax = sp.getInt("precos_max", 200000);
+        precoMax = sp.getInt("precos_max", 100000);
     }
 
     private void getWebsite() {
