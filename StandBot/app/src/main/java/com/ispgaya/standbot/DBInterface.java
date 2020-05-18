@@ -1,11 +1,13 @@
 package com.ispgaya.standbot;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
-public interface DBInterface {
+interface DBInterface {
     @FormUrlEncoded
     @POST("criarCarro.php")
     Call<Detalhes> addCarro(@Field("id") long id, @Field("url") String url, @Field("marca") String marca, @Field("modelo") String modelo, @Field("km") int km,
@@ -16,4 +18,11 @@ public interface DBInterface {
     @FormUrlEncoded
     @POST("existeCarro.php")
     Call<Detalhes> existe(@Field("id") long id);
+
+    @POST("cheapestCar.php")
+    Call<Cheapest> cheapest();
+
+    @FormUrlEncoded
+    @POST("eachCarPorMarca.php")
+    Call<List<EachCarroPorMarca>> each(@Field("ano") long ano);
 }

@@ -1,9 +1,9 @@
 package com.ispgaya.standbot;
 
-public class Detalhes {
-    String response;
+class Detalhes {
+    private String response;
 
-    public String getResposta(){
+    String getResposta(){
         return response;
     }
 }

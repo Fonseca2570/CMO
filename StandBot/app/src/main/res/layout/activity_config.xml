@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="#0d1b26"
     tools:context=".config">
 
     <RelativeLayout
@@ -25,7 +26,7 @@
                     android:id="@+id/marca"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:hint="marca"
+                    android:hint="Marcas"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -33,33 +34,35 @@
                     android:id="@+id/combustivel"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:hint="combustivel"
+                    android:hint="Combustivéis"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Desconto"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/desconto"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:hint="Desconto"
+                    android:textColorHint="#ffffff"
                     android:inputType="number"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="14sp" />
-
-                <!--EditText
-                    android:id="@+id/modelo"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="modelo"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" /-->
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:text="Ano"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -77,7 +80,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:text="Cavalos"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -95,7 +98,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:text="Km"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -113,7 +116,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:text="Preço"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 

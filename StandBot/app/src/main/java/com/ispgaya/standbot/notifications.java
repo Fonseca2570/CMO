@@ -45,8 +45,6 @@ public class notifications extends AppCompatActivity {
         String modelo;
     }
 
-
-
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +64,19 @@ public class notifications extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.config:
                         startActivity(new Intent(getApplicationContext(),config.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.notification:
                         return true;
                     case R.id.admin:
                         startActivity(new Intent(getApplicationContext(),admin.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -106,8 +107,6 @@ public class notifications extends AppCompatActivity {
                 TextView myTitle = row.findViewById(R.id.textView1);
                 TextView description = row.findViewById(R.id.textView2);
                 Button btnApagar = row.findViewById(R.id.apagar);
-
-
 
                 images.setImageResource(rImage[position]);
                 myTitle.setText(rTitle[position]);
@@ -144,9 +143,6 @@ public class notifications extends AppCompatActivity {
                         //Toast.makeText(notifications.this, ListaCarros.get(position).marca + " " + ListaCarros.get(position).id, Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
-
                 return row;
             }
         }

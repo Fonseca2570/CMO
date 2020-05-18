@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -34,7 +33,7 @@ public class config extends AppCompatActivity {
     Button save, marcas, combustiveis;
 
     RangeSeekBar anos, cavalos, kms, precos;
-    Number anos_min_value, anos_max_value, cavalos_min_value, cavalos_max_value, kms_min_value, kms_max_value, precos_min_value, precos_max_value;
+    Number anos_min_value, anos_max_value, cavalos_min_value, cavalos_max_value, kms_min_value, kms_max_value, precos_min_value, precos_max_value, desconto_value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +63,13 @@ public class config extends AppCompatActivity {
         kms.setSelectedMaxValue(kms_max_value);
         precos.setSelectedMinValue(precos_min_value);
         precos.setSelectedMaxValue(precos_max_value);
+        desconto.setText(String.valueOf(desconto_value));
 
         anos.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
                 anos_min_value = bar.getSelectedMinValue();
                 anos_max_value = bar.getSelectedMaxValue();
-
-                Toast.makeText(config.this, "Ano Min = " + anos_min_value + "\n" + "Ano Max = " + anos_max_value, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -80,8 +78,6 @@ public class config extends AppCompatActivity {
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
                 cavalos_min_value = bar.getSelectedMinValue();
                 cavalos_max_value = bar.getSelectedMaxValue();
-
-                Toast.makeText(config.this, "Cavalos Min = " + cavalos_min_value + "\n" + "Cavalos Max = " + cavalos_max_value, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -90,9 +86,6 @@ public class config extends AppCompatActivity {
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
                 kms_min_value = bar.getSelectedMinValue();
                 kms_max_value = bar.getSelectedMaxValue();
-
-
-                Toast.makeText(config.this, "Kms Min = " + kms_min_value + "\n" + "Kms Max = " + kms_max_value, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -101,8 +94,6 @@ public class config extends AppCompatActivity {
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
                 precos_min_value = bar.getSelectedMinValue();
                 precos_max_value = bar.getSelectedMaxValue();
-
-                Toast.makeText(config.this, "Preço Min = " + precos_min_value + "\n" + "Preço Max = " + precos_max_value, Toast.LENGTH_LONG).show();
             }
         });
         //Initialize  and Assign Variable
@@ -120,14 +111,17 @@ public class config extends AppCompatActivity {
                         return true;
                     case R.id.notification:
                         startActivity(new Intent(getApplicationContext(),notifications.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.admin:
                         startActivity(new Intent(getApplicationContext(),admin.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -137,7 +131,6 @@ public class config extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                //checkData();
                 //limparCombustiveis();
                 //limparMarcas();
                 //limparDados();
@@ -317,6 +310,7 @@ public class config extends AppCompatActivity {
     }
 
     public void guardarDados(){
+        desconto_value = Integer.valueOf(String.valueOf(desconto.getText()));
         SharedPreferences sp = getSharedPreferences("com.ispgaya.standbot.Dados", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
@@ -328,6 +322,7 @@ public class config extends AppCompatActivity {
         editor.putInt("kms_max", (Integer) kms_max_value);
         editor.putInt("precos_min", (Integer) precos_min_value);
         editor.putInt("precos_max", (Integer) precos_max_value);
+        editor.putInt("desconto", (Integer) desconto_value);
         editor.apply();
     }
 
@@ -341,6 +336,7 @@ public class config extends AppCompatActivity {
         kms_max_value = sp.getInt("kms_max", 500000);
         precos_min_value = sp.getInt("precos_min", 0);
         precos_max_value = sp.getInt("precos_max", 200000);
+        desconto_value = sp.getInt("desconto", 0);
     }
 
     public void limparDados(){

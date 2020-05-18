@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
     public double descontoConfig = 0.01;
     public int precoMin;
     public int precoMax;
-    public String[] listaMarcas;
-    public String[] listacombustiveis;
     public String marcas = "";
     public String combustiveis = "";
 
@@ -94,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
     List<String> sitesJaVisitados = new ArrayList<String>();
     DBInterface dbInterface;
 
-    Button teste;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.config:
                         startActivity(new Intent(getApplicationContext(), config.class));
+                        finish();
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.notification:
@@ -125,10 +122,12 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         startActivity(new Intent(getApplicationContext(), notifications.class));
+                        finish();
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.admin:
                         startActivity(new Intent(getApplicationContext(), admin.class));
+                        finish();
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.home:
@@ -138,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         aplicarConfigs();
-        teste = findViewById(R.id.teste);
 
 
         result = (TextView) findViewById(R.id.result);
@@ -178,9 +176,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Marcas: ", marcas);
         sp = getSharedPreferences("com.ispgaya.standbot.CombustiveisString", Context.MODE_PRIVATE);
         combustiveis = sp.getString("Combustiveis", "");
-        //Log.i("Combustiveis: ", combustiveis);
         sp = getSharedPreferences("com.ispgaya.standbot.Dados", Context.MODE_PRIVATE);
-        //Log.i("Anos Min", String.valueOf(sp.getInt("anos_min", 0)));
         anoMinimo = sp.getInt("anos_min", 1900);
         anoMaximo = sp.getInt("anos_max", 2019);
         cavalosMin = sp.getInt("cavalos_min", 0);
@@ -206,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    //logo.setImageResource(R.drawable.fiat);
                                     int idLogo = logoSwap.switchlogo(marca);
                                     if (idLogo != 0) {
                                         logo.setImageResource(idLogo);
@@ -260,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
         else{
             pro = 1;
         }
-        if(hasPhone == true){
+        if(hasPhone){
             phone = 1;
         }
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -272,7 +267,6 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<Detalhes>() {
             @Override
             public void onResponse(retrofit2.Call<Detalhes> call, Response<Detalhes> response) {
-                //Toast.makeText(this, "Carro criado com sucesso", Toast.LENGTH_LONG).show();
                 Detalhes detalhes = response.body();
                 System.out.println("Criado com sucesso--------" + detalhes.getResposta());
             }
@@ -365,7 +359,6 @@ public class MainActivity extends AppCompatActivity {
 
             String newUrl = String.format("https://www.standvirtual.com/carros/%s/%s/desde-%s/?search%%5Bfilter_enum_fuel_type%%5D=%s&search%%5Bfilter_float_first_registration_year%%3Ato%%5D=%s&search%%5Bfilter_float_mileage%%3Afrom%%5D=%s&search%%5Bfilter_float_mileage%%3Ato%%5D=%s&search%%5Bfilter_float_power%%3Afrom%%5D=%s&search%%5Bfilter_float_power%%3Ato%%5D=%s&search%%5Bfilter_enum_damaged%%5D=%s&search%%5Border%%5D=filter_float_price%%3Aasc&search%%5Bbrand_program_id%%5D%%5B0%%5D=&search%%5Bcountry%%5D=", marca, modelo, anoDe, combustivel, anoAte, quilometrosDe, quilometrosAte, cavalosDe, cavalosAte, sinistrado);
             Document docComparacao = Jsoup.connect(newUrl).get();
-            //System.out.println(newUrl);
             if (!docComparacao.select("body").text().contains("Não existem anúncios para a sua pesquisa")) {
                 Element primeiro = docComparacao.select("article").first();
                 String primeiroLink = primeiro.attr("data-href");
@@ -415,8 +408,5 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
 
         }
-
     }
-
-
 }
