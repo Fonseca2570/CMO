@@ -25,4 +25,16 @@ interface DBInterface {
     @FormUrlEncoded
     @POST("eachCarPorMarca.php")
     Call<List<EachCarroPorMarca>> each(@Field("ano") long ano);
+
+    @POST("fastestSell.php")
+    Call<FastestSell> fastest();
+
+    @POST("mostExpensiveCar.php")
+    Call<MostExpensive> expensive();
+
+    @POST("racioCavalosPreco.php")
+    Call<List<Racio>> racio();
+
+    @POST("topCarSell.php")
+    Call<TopCar> topCar();
 }
