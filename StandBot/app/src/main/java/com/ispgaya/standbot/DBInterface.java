@@ -16,25 +16,26 @@ interface DBInterface {
                                                @Field("tipoAnunciador") int tipoAnunciador, @Field("ano") int ano, @Field("dataVendido") String dataVendido);
 
     @FormUrlEncoded
-    @POST("existeCarro.php")
-    Call<Detalhes> existe(@Field("id") long id);
-
     @POST("cheapestCar.php")
-    Call<Cheapest> cheapest();
+    Call<Cheapest> cheapest(@Field("mes") long mes);
 
     @FormUrlEncoded
     @POST("eachCarPorMarca.php")
-    Call<List<EachCarroPorMarca>> each(@Field("ano") long ano);
+    Call<List<EachCarroPorMarca>> each(@Field("mes") long mes, @Field("ano") long ano);
 
+    @FormUrlEncoded
     @POST("fastestSell.php")
-    Call<FastestSell> fastest();
+    Call<FastestSell> fastest(@Field("mes") long mes);
 
+    @FormUrlEncoded
     @POST("mostExpensiveCar.php")
-    Call<MostExpensive> expensive();
+    Call<MostExpensive> expensive(@Field("mes") long mes);
 
+    @FormUrlEncoded
     @POST("racioCavalosPreco.php")
-    Call<List<Racio>> racio();
+    Call<List<Racio>> racio(@Field("mes") long mes, @Field("ano") long ano);
 
+    @FormUrlEncoded
     @POST("topCarSell.php")
-    Call<TopCar> topCar();
+    Call<TopCar> topCar(@Field("mes") long mes);
 }
