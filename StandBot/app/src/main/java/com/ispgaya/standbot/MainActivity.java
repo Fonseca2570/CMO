@@ -177,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
         sp = getSharedPreferences("com.ispgaya.standbot.CombustiveisString", Context.MODE_PRIVATE);
         combustiveis = sp.getString("Combustiveis", "");
         sp = getSharedPreferences("com.ispgaya.standbot.Dados", Context.MODE_PRIVATE);
+        descontoConfig = (Double.valueOf(sp.getInt("desconto", 10)))/100;
         anoMinimo = sp.getInt("anos_min", 1900);
         anoMaximo = sp.getInt("anos_max", 2019);
         cavalosMin = sp.getInt("cavalos_min", 0);

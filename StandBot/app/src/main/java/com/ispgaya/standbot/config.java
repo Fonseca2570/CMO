@@ -322,7 +322,7 @@ public class config extends AppCompatActivity {
         editor.putInt("kms_max", (Integer) kms_max_value);
         editor.putInt("precos_min", (Integer) precos_min_value);
         editor.putInt("precos_max", (Integer) precos_max_value);
-        editor.putInt("desconto", (Integer) desconto_value);
+        editor.putInt("desconto", Integer.parseInt(desconto.getText().toString()));
         editor.apply();
     }
 
