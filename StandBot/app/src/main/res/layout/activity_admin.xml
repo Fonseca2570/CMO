@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#0d1b26"
+    android:background="#ffffff"
     tools:context=".admin">
 
     <RelativeLayout
@@ -21,25 +21,40 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <Button
                     android:id="@+id/mes"
+                    android:layout_width="230dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/button_background"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"
+                    android:text="Mês da venda"
+                    android:textColor="#000000"
+                    android:textSize="22sp" />
+
+                <Space
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Mês da venda"
-                    android:inputType="number"
-                    android:textColor="@color/white"
-                    android:textColorHint="#000000"
-                    android:textSize="14sp" />
+                    android:layout_height="10dp" />
 
                 <EditText
                     android:id="@+id/ano"
-                    android:layout_width="match_parent"
+                    android:layout_width="380dp"
                     android:layout_height="wrap_content"
                     android:hint="Ano do Carro"
                     android:inputType="number"
-                    android:textColor="@color/white"
-                    android:textColorHint="#ffffff"
+                    android:textColor="@color/black"
+                    android:textColorHint="#000000"
                     android:textSize="14sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -57,7 +72,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Mais Vendido"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="24sp"
                             android:textStyle="bold" />
 
@@ -67,7 +82,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Marca:"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="18sp"/>
 
                         <TextView
@@ -76,7 +91,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Modelo:"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="18sp"/>
 
                         <TextView
@@ -85,7 +100,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Preço:"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="18sp"/>
                     </LinearLayout>
 
@@ -101,7 +116,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Mais Rápido a ser Vendido"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="24sp"
                             android:textStyle="bold" />
 
@@ -111,7 +126,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Marca:"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="18sp"/>
 
                         <TextView
@@ -120,7 +135,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Modelo:"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="18sp"/>
 
                         <TextView
@@ -129,10 +144,14 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Preço:"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="18sp"/>
                     </LinearLayout>
                 </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -150,7 +169,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Mais Caro"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="24sp"
                             android:textStyle="bold" />
 
@@ -160,7 +179,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Marca:"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="18sp"/>
 
                         <TextView
@@ -169,7 +188,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Modelo:"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="18sp"/>
 
                         <TextView
@@ -178,7 +197,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Preço:"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="18sp"/>
                     </LinearLayout>
 
@@ -194,7 +213,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Mais Barato"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="24sp"
                             android:textStyle="bold" />
 
@@ -204,7 +223,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Marca:"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="18sp"/>
 
                         <TextView
@@ -213,7 +232,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Modelo:"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="18sp"/>
 
                         <TextView
@@ -222,7 +241,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Preço:"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="18sp"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -239,9 +258,21 @@
 
                 <Button
                     android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Correr" />
+                    android:layout_width="230dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/button_background"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"
+                    android:text="Correr"
+                    android:textColor="#000000"
+                    android:textSize="22sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/bottom_navigation"
                     android:layout_width="match_parent"
