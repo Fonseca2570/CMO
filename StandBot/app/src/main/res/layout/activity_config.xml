@@ -8,183 +8,225 @@
     android:background="#F2F2F2"
     tools:context=".config">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/marca"
+                android:layout_width="230dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_background"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Marcas"
+                android:textColor="#f2f2f2"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.046" />
+
+            <Button
+                android:id="@+id/combustivel"
+                android:layout_width="230dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_background"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Combustivéis"
+                android:textColor="#f2f2f2"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/marca" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-                <!--Put form controls here-->
+                android:layout_marginTop="10dp"
+                android:text="Desconto"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/combustivel" />
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+            <EditText
+                android:id="@+id/desconto"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="Desconto"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textColorHint="#000000"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-                <Button
-                    android:id="@+id/marca"
-                    android:layout_width="230dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/button_background"
-                    android:shadowColor="#A8A8A8"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="5"
-                    android:text="Marcas"
-                    android:textColor="#000000"
-                    android:textSize="22sp" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Ano"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/desconto" />
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+            <org.florescu.android.rangeseekbar.RangeSeekBar
+                android:id="@+id/ano"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:absoluteMaxValue="1950"
+                app:absoluteMinValue="2020"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                app:textAboveThumbsColor="@color/black"
+                app:valuesAboveThumbs="true" />
 
-                <Button
-                    android:id="@+id/combustivel"
-                    android:layout_width="230dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/button_background"
-                    android:shadowColor="#A8A8A8"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="5"
-                    android:text="Combustivéis"
-                    android:textColor="#000000"
-                    android:textSize="22sp" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Cavalos"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ano" />
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+            <org.florescu.android.rangeseekbar.RangeSeekBar
+                android:id="@+id/cavalo"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:absoluteMaxValue="0"
+                app:absoluteMinValue="1000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:textAboveThumbsColor="@color/black"
+                app:valuesAboveThumbs="true" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Desconto"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Km"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cavalo" />
 
-                <EditText
-                    android:id="@+id/desconto"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Desconto"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textColorHint="#000000"
-                    android:textSize="14sp" />
+            <org.florescu.android.rangeseekbar.RangeSeekBar
+                android:id="@+id/km"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:absoluteMaxValue="0"
+                app:absoluteMinValue="500000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                app:textAboveThumbsColor="@color/black"
+                app:valuesAboveThumbs="true" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Ano"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Preço"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/km" />
 
-                <org.florescu.android.rangeseekbar.RangeSeekBar
-                    android:id="@+id/ano"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    app:absoluteMaxValue="1950"
-                    app:absoluteMinValue="2020"
-                    app:textAboveThumbsColor="@color/black"
-                    app:valuesAboveThumbs="true" />
+            <org.florescu.android.rangeseekbar.RangeSeekBar
+                android:id="@+id/preco"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:absoluteMaxValue="0"
+                app:absoluteMinValue="100000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView1"
+                app:textAboveThumbsColor="@color/black"
+                app:valuesAboveThumbs="true" />
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Cavalos"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+            <Button
+                android:id="@+id/save"
+                android:layout_width="230dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/button_background"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Save"
+                android:textColor="#f2f2f2"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/preco" />
 
-                <org.florescu.android.rangeseekbar.RangeSeekBar
-                    android:id="@+id/cavalo"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    app:absoluteMaxValue="0"
-                    app:absoluteMinValue="1000"
-                    app:textAboveThumbsColor="@color/black"
-                    app:valuesAboveThumbs="true" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Km"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <org.florescu.android.rangeseekbar.RangeSeekBar
-                    android:id="@+id/km"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    app:absoluteMaxValue="0"
-                    app:absoluteMinValue="500000"
-                    app:textAboveThumbsColor="@color/black"
-                    app:valuesAboveThumbs="true" />
-
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Preço"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <org.florescu.android.rangeseekbar.RangeSeekBar
-                    android:id="@+id/preco"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    app:absoluteMaxValue="0"
-                    app:absoluteMinValue="100000"
-                    app:textAboveThumbsColor="@color/black"
-                    app:valuesAboveThumbs="true" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <Button
-                    android:id="@+id/save"
-                    android:layout_width="230dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/button_background"
-                    android:shadowColor="#A8A8A8"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="5"
-                    android:text="Save"
-                    android:textColor="#000000"
-                    android:textSize="22sp" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-            </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="0dp"
-        android:background="@color/design_default_color_secondary"
-        app:itemBackground="@color/design_default_color_secondary"
+        android:layout_marginTop="20dp"
+        android:background="#1D4D73"
+        app:itemBackground="@color/back"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
-        app:menu="@menu/menu_navigation" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/save"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/menu_navigation"
+        tools:layout_editor_absoluteX="36dp" />
 </FrameLayout>

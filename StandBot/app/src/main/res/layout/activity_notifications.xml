@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".notifications"
-    android:background="#0d1b26"
+    android:background="#f2f2f2"
     android:descendantFocusability="blocksDescendants"
     >
 
@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
-        android:background="@color/design_default_color_secondary"
-        app:itemBackground="@color/design_default_color_secondary"
+        android:background="#1D4D73"
+        app:itemBackground="@color/back"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />
@@ -33,7 +33,7 @@
         android:id="@+id/semNotifcations"
         android:text="Não tem Notificações guardadas"
         android:gravity="center"
-        android:textColor="#ffffff"
+        android:textColor="#4d4d4d"
         android:visibility="invisible"
         />
 
