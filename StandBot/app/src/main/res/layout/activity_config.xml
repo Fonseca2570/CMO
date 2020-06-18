@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="#0d1b26"
+    android:background="#F2F2F2"
     tools:context=".config">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="545dp">
+        android:layout_height="wrap_content">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -22,28 +22,51 @@
                 android:gravity="center"
                 android:orientation="vertical">
                 <!--Put form controls here-->
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <Button
                     android:id="@+id/marca"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Marcas"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:layout_width="230dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/button_background"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"
+                    android:text="Marcas"
+                    android:textColor="#000000"
+                    android:textSize="22sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <Button
                     android:id="@+id/combustivel"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Combustivéis"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:layout_width="230dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/button_background"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"
+                    android:text="Combustivéis"
+                    android:textColor="#000000"
+                    android:textSize="22sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:text="Desconto"
-                    android:textColor="#ffffff"
+                    android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -52,9 +75,9 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:hint="Desconto"
-                    android:textColorHint="#ffffff"
                     android:inputType="number"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
+                    android:textColorHint="#000000"
                     android:textSize="14sp" />
 
                 <TextView
@@ -62,7 +85,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:text="Ano"
-                    android:textColor="#ffffff"
+                    android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -80,7 +103,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:text="Cavalos"
-                    android:textColor="#ffffff"
+                    android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -98,7 +121,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:text="Km"
-                    android:textColor="#ffffff"
+                    android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -116,7 +139,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:text="Preço"
-                    android:textColor="#ffffff"
+                    android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -129,11 +152,26 @@
                     app:textAboveThumbsColor="@color/black"
                     app:valuesAboveThumbs="true" />
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <Button
                     android:id="@+id/save"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="Save" />
+                    android:layout_width="230dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/button_background"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"
+                    android:text="Save"
+                    android:textColor="#000000"
+                    android:textSize="22sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
             </LinearLayout>
         </ScrollView>
