@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -144,190 +145,242 @@ public class admin extends AppCompatActivity {
 
     public void getCheapest(){
         dbInterface = DBHandler.getDBHandler().create(DBInterface.class);
-        retrofit2.Call<Cheapest> call = dbInterface.cheapest(mesSel + 1);
-        call.enqueue(new Callback<Cheapest>() {
+        final retrofit2.Call<Cheapest> call = dbInterface.cheapest(mesSel + 1);
+        new CountDownTimer(5000,1000){
             @Override
-            public void onResponse(Call<Cheapest> call, Response<Cheapest> response) {
-                String marca = response.body().getMarca();
-                String modelo = response.body().getModelo();
-                int ano = response.body().getAno();
-                int preco = response.body().getPreco();
-                maisBaratoMarca.setText("Marca: " + capitalize(marca));
-                maisBaratoModelo.setText("Modelo: " + capitalize(modelo));
-                maisBaratoPreco.setText("Preço: " + preco + "€");
-                //System.out.println("Marca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nPreco: " + preco);
-            }
+            public void onTick(long miliseconds){}
 
             @Override
-            public void onFailure(Call<Cheapest> call, Throwable t) {
-                maisBaratoMarca.setText("Marca:");
-                maisBaratoModelo.setText("Modelo:");
-                maisBaratoPreco.setText("Preço:");
+            public void onFinish(){
+                call.enqueue(new Callback<Cheapest>() {
+                    @Override
+                    public void onResponse(Call<Cheapest> call, Response<Cheapest> response) {
+                        String marca = response.body().getMarca();
+                        String modelo = response.body().getModelo();
+                        int ano = response.body().getAno();
+                        double preco = response.body().getPreco();
+                        maisBaratoMarca.setText("Marca: " + capitalize(marca));
+                        maisBaratoModelo.setText("Modelo: " + capitalize(modelo));
+                        maisBaratoPreco.setText("Preço: " + preco + "€");
+                        //System.out.println("Marca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nPreco: " + preco);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Cheapest> call, Throwable t) {
+                        maisBaratoMarca.setText("Marca:");
+                        maisBaratoModelo.setText("Modelo:");
+                        maisBaratoPreco.setText("Preço:");
+                    }
+                });
             }
-        });
+        }.start();
     }
 
     public void getEachCarroPorMarca(){
         dbInterface = DBHandler.getDBHandler().create(DBInterface.class);
-        retrofit2.Call<List<EachCarroPorMarca>> call = dbInterface.each(mesSel + 1, Integer.parseInt(ano.getText().toString()));
-        call.enqueue(new Callback<List<EachCarroPorMarca>>() {
+        final retrofit2.Call<List<EachCarroPorMarca>> call = dbInterface.each(mesSel + 1, Integer.parseInt(ano.getText().toString()));
+        new CountDownTimer(5000,1000){
             @Override
-            public void onResponse(Call<List<EachCarroPorMarca>> call, Response<List<EachCarroPorMarca>> response) {
-                if(chart1V){
-                    chart1.clear();
-                    Bardataset1.clear();
-                    BARDATA1.clearValues();
-                }
-                int i = 0;
-                for (EachCarroPorMarca carro : response.body()){
-                    System.out.println(response.body());
-                    int quantidade = carro.getQuantidadeVendidos();
-                    String marca = carro.getMarca();
-                    String modelo = carro.getModelo();
-                    int ano = carro.getAno();
-                    int precoMed = carro.getPrecoMed();
-                    //System.out.println("Quantidade: " + quantidade + "\nMarca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nPreço Médio: " + precoMed);
-                    BARENTRY1.add(new BarEntry(quantidade, i));
-                    if(!chart1V){
-                        BarEntryLabels1.add(marca);
-                        System.out.println(modelo);
-                    }
-                    i++;
-                }
-                Bardataset1 = new BarDataSet(BARENTRY1, "Marcas");
-                BARDATA1 = new BarData(BarEntryLabels1, Bardataset1);
-                Bardataset1.setColors(ColorTemplate.COLORFUL_COLORS);
-                chart1.setData(BARDATA1);
-                chart1.animateY(3000);
-                chart1V = true;
-            }
+            public void onTick(long miliseconds){}
 
             @Override
-            public void onFailure(Call<List<EachCarroPorMarca>> call, Throwable t) {
-                System.out.println(t);
+            public void onFinish(){
+                call.enqueue(new Callback<List<EachCarroPorMarca>>() {
+                    @Override
+                    public void onResponse(Call<List<EachCarroPorMarca>> call, Response<List<EachCarroPorMarca>> response) {
+                        if(chart1V){
+                            chart1.clear();
+                            Bardataset1.clear();
+                            BARDATA1.clearValues();
+                        }
+                        int i = 0;
+                        for (EachCarroPorMarca carro : response.body()){
+                            int quantidade = carro.getQuantidadeVendidos();
+                            String marca = carro.getMarca();
+                            String modelo = carro.getModelo();
+                            int ano = carro.getAno();
+                            double precoMed = carro.getPrecoMed();
+                            //System.out.println("Quantidade: " + quantidade + "\nMarca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nPreço Médio: " + precoMed);
+                            BARENTRY1.add(new BarEntry(quantidade, i));
+                            if(!chart1V){
+                                BarEntryLabels1.add(marca);
+                            }
+                            i++;
+                        }
+                        Bardataset1 = new BarDataSet(BARENTRY1, "Marcas");
+                        BARDATA1 = new BarData(BarEntryLabels1, Bardataset1);
+                        Bardataset1.setColors(ColorTemplate.COLORFUL_COLORS);
+                        chart1.setData(BARDATA1);
+                        chart1.animateY(3000);
+                        chart1V = true;
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<EachCarroPorMarca>> call, Throwable t) {
+
+                    }
+                });
             }
-        });
+        }.start();
     }
 
     public void getFastest(){
         dbInterface = DBHandler.getDBHandler().create(DBInterface.class);
-        retrofit2.Call<FastestSell> call = dbInterface.fastest(mesSel + 1);
-        call.enqueue(new Callback<FastestSell>() {
+        final retrofit2.Call<FastestSell> call = dbInterface.fastest(mesSel + 1);
+
+        new CountDownTimer(5000,1000){
             @Override
-            public void onResponse(Call<FastestSell> call, Response<FastestSell> response) {
-                String marca = response.body().getMarca();
-                String modelo = response.body().getModelo();
-                int ano = response.body().getAno();
-                int preco = response.body().getPreco();
-                String dataVendido = response.body().getDataVendido();
-                String dataAnuncio = response.body().getDataAnuncio();
-                int dias = response.body().getDias();
-                maisRapidoMarca.setText("Marca: " + capitalize(marca));
-                maisRapidoModelo.setText("Modelo: " + capitalize(modelo));
-                maisRapidoPreco.setText("Preço: " + preco + "€");
-                //System.out.println("Marca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nPreço: " + preco + "\nData Vendido: " + dataVendido + "\nData Anuncio: " + dataAnuncio + "\nDias: " + dias);
-            }
+            public void onTick(long miliseconds){}
 
             @Override
-            public void onFailure(Call<FastestSell> call, Throwable t) {
-                maisRapidoMarca.setText("Marca:");
-                maisRapidoModelo.setText("Modelo:");
-                maisRapidoPreco.setText("Preço:");
+            public void onFinish(){
+                call.enqueue(new Callback<FastestSell>() {
+                    @Override
+                    public void onResponse(Call<FastestSell> call, Response<FastestSell> response) {
+                        String marca = response.body().getMarca();
+                        String modelo = response.body().getModelo();
+                        int ano = response.body().getAno();
+                        int preco = response.body().getPreco();
+                        String dataVendido = response.body().getDataVendido();
+                        String dataAnuncio = response.body().getDataAnuncio();
+                        int dias = response.body().getDias();
+                        maisRapidoMarca.setText("Marca: " + capitalize(marca));
+                        maisRapidoModelo.setText("Modelo: " + capitalize(modelo));
+                        maisRapidoPreco.setText("Preço: " + preco + "€");
+                        //System.out.println("Marca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nPreço: " + preco + "\nData Vendido: " + dataVendido + "\nData Anuncio: " + dataAnuncio + "\nDias: " + dias);
+                    }
+
+                    @Override
+                    public void onFailure(Call<FastestSell> call, Throwable t) {
+                        maisRapidoMarca.setText("Marca:");
+                        maisRapidoModelo.setText("Modelo:");
+                        maisRapidoPreco.setText("Preço:");
+                    }
+                });
             }
-        });
+        }.start();
     }
 
     public void getExpensive(){
         dbInterface = DBHandler.getDBHandler().create(DBInterface.class);
-        retrofit2.Call<MostExpensive> call = dbInterface.expensive(mesSel + 1);
-        call.enqueue(new Callback<MostExpensive>() {
-            @Override
-            public void onResponse(Call<MostExpensive> call, Response<MostExpensive> response) {
-                String marca = response.body().getMarca();
-                String modelo = response.body().getModelo();
-                int ano = response.body().getAno();
-                int preco = response.body().getPreco();
-                maisCaroMarca.setText("Marca: " + capitalize(marca));
-                maisCaroModelo.setText("Modelo: " + capitalize(modelo));
-                maisCaroPreco.setText("Preço: " + preco + "€");
-                //System.out.println("Marca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nPreço: " + preco);
-            }
+        final retrofit2.Call<MostExpensive> call = dbInterface.expensive(mesSel + 1);
+
+        new CountDownTimer(5000,1000){
 
             @Override
-            public void onFailure(Call<MostExpensive> call, Throwable t) {
-                maisCaroMarca.setText("Marca:");
-                maisCaroModelo.setText("Modelo:");
-                maisCaroPreco.setText("Preço:");
+            public void onTick(long miliseconds){}
+
+            @Override
+            public void onFinish(){
+                call.enqueue(new Callback<MostExpensive>() {
+                    @Override
+                    public void onResponse(Call<MostExpensive> call, Response<MostExpensive> response) {
+                        String marca = response.body().getMarca();
+                        String modelo = response.body().getModelo();
+                        int ano = response.body().getAno();
+                        double preco = response.body().getPreco();
+                        maisCaroMarca.setText("Marca: " + capitalize(marca));
+                        maisCaroModelo.setText("Modelo: " + capitalize(modelo));
+                        maisCaroPreco.setText("Preço: " + preco + "€");
+                        //System.out.println("Marca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nPreço: " + preco);
+                    }
+
+                    @Override
+                    public void onFailure(Call<MostExpensive> call, Throwable t) {
+                        maisCaroMarca.setText("Marca:");
+                        maisCaroModelo.setText("Modelo:");
+                        maisCaroPreco.setText("Preço:");
+                    }
+                });
             }
-        });
+        }.start();
     }
 
     public void getRacio(){
         dbInterface = DBHandler.getDBHandler().create(DBInterface.class);
-        retrofit2.Call<List<Racio>> call = dbInterface.racio(mesSel + 1, Integer.parseInt(ano.getText().toString()));
-        call.enqueue(new Callback<List<Racio>>() {
-            @Override
-            public void onResponse(Call<List<Racio>> call, Response<List<Racio>> response) {
-                if(chart2V){
-                    chart2.clear();
-                    Bardataset2.clear();
-                    BARDATA2.clearValues();
-                }
-                int i = 0;
-                for (Racio racios : response.body()){
-                    System.out.println(response.body());
-                    double racio = racios.getRacio();
-                    int potencia = racios.getPotencia();
-                    String marca = racios.getMarca();
-                    String modelo = racios.getModelo();
-                    int ano = racios.getAno();
-                    int preco = racios.getPreco();
-                    //System.out.println("Racio: " + racio + "\nPotência: " + potencia + "\nMarca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nPreço: " + preco);
-                    BARENTRY2.add(new BarEntry((float) racio, i));
-                    if(!chart2V){
-                        BarEntryLabels2.add(marca);
-                    }
-                    i++;
-                }
-                Bardataset2 = new BarDataSet(BARENTRY2, "Marcas");
-                BARDATA2 = new BarData(BarEntryLabels2, Bardataset2);
-                Bardataset2.setColors(ColorTemplate.COLORFUL_COLORS);
-                chart2.setData(BARDATA2);
-                chart2.animateY(3000);
-                chart2V = true;
-            }
+        final retrofit2.Call<List<Racio>> call = dbInterface.racio(mesSel + 1, Integer.parseInt(ano.getText().toString()));
+
+        new CountDownTimer(5000,1000){
 
             @Override
-            public void onFailure(Call<List<Racio>> call, Throwable t) {
-                System.out.println(t);
+            public void onTick(long miliseconds){}
+
+            @Override
+            public void onFinish(){
+                call.enqueue(new Callback<List<Racio>>() {
+                    @Override
+                    public void onResponse(Call<List<Racio>> call, Response<List<Racio>> response) {
+                        if(chart2V){
+                            chart2.clear();
+                            Bardataset2.clear();
+                            BARDATA2.clearValues();
+                        }
+                        int i = 0;
+                        for (Racio racios : response.body()){
+                            double racio = racios.getRacio();
+                            int potencia = racios.getPotencia();
+                            String marca = racios.getMarca();
+                            String modelo = racios.getModelo();
+                            int ano = racios.getAno();
+                            double preco = racios.getPreco();
+                            //System.out.println("Racio: " + racio + "\nPotência: " + potencia + "\nMarca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nPreço: " + preco);
+                            BARENTRY2.add(new BarEntry((float) racio, i));
+                            if(!chart2V){
+                                BarEntryLabels2.add(marca);
+                            }
+                            i++;
+                        }
+                        Bardataset2 = new BarDataSet(BARENTRY2, "Marcas");
+                        BARDATA2 = new BarData(BarEntryLabels2, Bardataset2);
+                        Bardataset2.setColors(ColorTemplate.COLORFUL_COLORS);
+                        chart2.setData(BARDATA2);
+                        chart2.animateY(3000);
+                        chart2V = true;
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Racio>> call, Throwable t) {
+
+                    }
+                });
             }
-        });
+        }.start();
     }
 
     public void getTopCar(){
         dbInterface = DBHandler.getDBHandler().create(DBInterface.class);
-        retrofit2.Call<TopCar> call = dbInterface.topCar(mesSel + 1);
-        call.enqueue(new Callback<TopCar>() {
-            @Override
-            public void onResponse(Call<TopCar> call, Response<TopCar> response) {
-                int contador = response.body().getContador();
-                String marca = response.body().getMarca();
-                String modelo = response.body().getModelo();
-                int ano = response.body().getAno();
-                int preco = response.body().getPrecoMed();
-                maisVendidoMarca.setText("Marca: " + capitalize(marca));
-                maisVendidoModelo.setText("Modelo: " + capitalize(modelo));
-                maisVendidoPreco.setText("Preço: " + preco + "€");
-                //System.out.println("Contador: " + contador + "\nMarca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "Preço: " + preco);
-            }
+        final retrofit2.Call<TopCar> call = dbInterface.topCar(mesSel + 1);
+
+        new CountDownTimer(5000,1000){
 
             @Override
-            public void onFailure(Call<TopCar> call, Throwable t) {
-                maisVendidoMarca.setText("Marca:");
-                maisVendidoModelo.setText("Modelo:");
-                maisVendidoPreco.setText("Preço:");
+            public void onTick(long miliseconds){}
+
+            @Override
+            public void onFinish(){
+                call.enqueue(new Callback<TopCar>() {
+                    @Override
+                    public void onResponse(Call<TopCar> call, Response<TopCar> response) {
+                        int contador = response.body().getContador();
+                        String marca = response.body().getMarca();
+                        String modelo = response.body().getModelo();
+                        int ano = response.body().getAno();
+                        double preco = response.body().getPrecoMed();
+                        maisVendidoMarca.setText("Marca: " + capitalize(marca));
+                        maisVendidoModelo.setText("Modelo: " + capitalize(modelo));
+                        maisVendidoPreco.setText("Preço: " + preco + "€");
+                        //System.out.println("Contador: " + contador + "\nMarca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "Preço: " + preco);
+                    }
+
+                    @Override
+                    public void onFailure(Call<TopCar> call, Throwable t) {
+                        maisVendidoMarca.setText("Marca:");
+                        maisVendidoModelo.setText("Modelo:");
+                        maisVendidoPreco.setText("Preço:");
+                    }
+                });
             }
-        });
+        }.start();
     }
 }
 

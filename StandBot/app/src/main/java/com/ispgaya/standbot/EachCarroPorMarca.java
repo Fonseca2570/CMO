@@ -23,7 +23,7 @@ public class EachCarroPorMarca {
 
     @SerializedName("precoMed")
     @Expose
-    private int precoMed;
+    private double precoMed;
 
     public int getQuantidadeVendidos() {
         return quantidadeVendidos;
@@ -57,11 +57,11 @@ public class EachCarroPorMarca {
         this.ano = ano;
     }
 
-    public int getPrecoMed() {
+    public double getPrecoMed() {
         return precoMed;
     }
 
-    public void setPrecoMed(int precoMed) {
+    public void setPrecoMed(double precoMed) {
         this.precoMed = precoMed;
     }
 }

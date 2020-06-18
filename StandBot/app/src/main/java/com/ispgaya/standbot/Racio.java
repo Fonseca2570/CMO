@@ -27,7 +27,7 @@ public class Racio {
 
     @SerializedName("preco")
     @Expose
-    private int preco;
+    private double preco;
 
     public double getRacio() {
         return racio;
@@ -69,11 +69,11 @@ public class Racio {
         this.ano = ano;
     }
 
-    public int getPreco() {
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(int preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 }

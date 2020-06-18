@@ -23,7 +23,7 @@ public class TopCar {
 
     @SerializedName("precoMed")
     @Expose
-    private int precoMed;
+    private double precoMed;
 
     public int getContador() {
         return contador;
@@ -57,11 +57,11 @@ public class TopCar {
         this.ano = ano;
     }
 
-    public int getPrecoMed() {
+    public double getPrecoMed() {
         return precoMed;
     }
 
-    public void setPrecoMed(int precoMed) {
+    public void setPrecoMed(double precoMed) {
         this.precoMed = precoMed;
     }
 }

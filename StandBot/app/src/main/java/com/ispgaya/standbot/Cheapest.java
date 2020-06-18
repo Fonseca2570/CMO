@@ -18,7 +18,7 @@ public class Cheapest {
 
     @SerializedName("preco")
     @Expose
-    private int preco;
+    private double preco;
 
     public String getMarca() {
         return marca;
@@ -44,11 +44,11 @@ public class Cheapest {
         this.ano = ano;
     }
 
-    public int getPreco() {
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(int preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 }
